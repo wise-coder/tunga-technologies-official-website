@@ -1,0 +1,55 @@
+# Created files
+
+All 51 files below were created in this initially empty project. Generated builds, dependencies, local references and browser reports are excluded.
+
+- .env.example
+- .gitignore
+- .prettierignore
+- README.md
+- docs/DELIVERY.md
+- docs/FILES.md
+- eslint.config.mjs
+- next.config.ts
+- package-lock.json
+- package.json
+- playwright.config.ts
+- postcss.config.mjs
+- public/brand/tunga-mark.svg
+- scripts/lighthouse.mjs
+- src/app/about/page.tsx
+- src/app/api/enquiries/route.ts
+- src/app/contact/page.tsx
+- src/app/error.tsx
+- src/app/globals.css
+- src/app/icon.svg
+- src/app/impact/page.tsx
+- src/app/insights/[slug]/page.tsx
+- src/app/insights/page.tsx
+- src/app/layout.tsx
+- src/app/not-found.tsx
+- src/app/opengraph-image.tsx
+- src/app/page.tsx
+- src/app/partners/page.tsx
+- src/app/privacy/page.tsx
+- src/app/robots.ts
+- src/app/sitemap.ts
+- src/app/solutions/e-tungo/page.tsx
+- src/app/solutions/page.tsx
+- src/app/terms/page.tsx
+- src/components/brand.tsx
+- src/components/contact-form.tsx
+- src/components/footer.tsx
+- src/components/header.tsx
+- src/components/legal-page.tsx
+- src/components/sections.tsx
+- src/components/ui.tsx
+- src/content/impact.ts
+- src/content/insights.ts
+- src/content/legal.ts
+- src/content/site.ts
+- src/content/solutions.ts
+- src/lib/enquiry.ts
+- src/lib/form-config.ts
+- src/lib/metadata.ts
+- tests/site.spec.ts
+- tsconfig.json
