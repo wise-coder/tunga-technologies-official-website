@@ -33,7 +33,7 @@ Reproduce the audit using `npm run audit:mobile` with the production server runn
 ## Remaining company inputs
 
 1. Confirm the production origin and Tunga repository URL.
-2. Supply the final approved SVG logo, or approve/replace the original provisional wordmark and favicon.
+2. The user-supplied logo has been adapted to SVG with the framed TT symbol, horizontal wordmark and tagline. Header/footer colors follow their backgrounds; the favicon and illustration use the same symbol. The adaptation uses Inter; an original vector master is optional for exact source typography.
 3. Add real email, optional phone and genuine social URLs.
 4. Provide approved privacy and terms copy, an enquiry retention period and privacy contact.
 5. Configure the HTTPS enquiry destination/API and verify delivery to the correct recipient.

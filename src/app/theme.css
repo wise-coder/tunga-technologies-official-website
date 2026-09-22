@@ -180,15 +180,15 @@ h3 {
   white-space: nowrap;
   gap: 14px;
 }
+.wordmark {
+  color: #034ea2;
+  gap: 0;
+}
 .wordmark > svg {
-  width: 31px;
-  height: 31px;
-}
-.wordmark strong {
-  font-size: 30px;
-}
-.wordmark-caption {
-  font-size: 7px;
+  display: block;
+  width: 242px;
+  height: auto;
+  flex-shrink: 0;
 }
 .header-home:not(.is-scrolled) {
   background: rgba(5, 47, 90, 0.93);
@@ -197,9 +197,6 @@ h3 {
 .header-home:not(.is-scrolled) .wordmark,
 .header-home:not(.is-scrolled) .desktop-nav a {
   color: white;
-}
-.header-home:not(.is-scrolled) .brand-dot {
-  color: #a0cafd;
 }
 .header-home:not(.is-scrolled) .desktop-nav a:hover {
   color: #c9e4ff;
@@ -979,8 +976,9 @@ h3 {
 .site-footer .wordmark {
   color: white;
 }
-.site-footer .brand-dot {
-  color: #badbff;
+.site-footer .wordmark > svg {
+  width: 280px;
+  max-width: 100%;
 }
 .footer-main {
   padding-bottom: 44px;
@@ -1144,12 +1142,8 @@ h3 {
   .header-inner {
     height: 72px;
   }
-  .wordmark strong {
-    font-size: 28px;
-  }
   .wordmark > svg {
-    width: 29px;
-    height: 29px;
+    width: 220px;
   }
   .menu-toggle {
     border-radius: 5px;

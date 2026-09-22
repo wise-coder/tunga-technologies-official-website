@@ -1,15 +1,23 @@
 import Link from "next/link";
 
+function LogoPaths() {
+  return (
+    <g fill="currentColor">
+      <path fillRule="evenodd" d="M0 0h104v100H0ZM4 4v92h96V4Z" />
+      <path d="M5 15h44v81H33V29H18ZM55 15h44L86 29H71v67H55Z" />
+    </g>
+  );
+}
+
 export function BrandMark({ className = "" }: { className?: string }) {
   return (
     <svg
       className={className}
-      viewBox="0 0 42 42"
+      viewBox="0 0 104 100"
       fill="none"
       aria-hidden="true"
     >
-      <path d="M2 6h38v10H26v24H16V16H2V6Z" fill="currentColor" />
-      <path d="M30 22h10v10H30V22Z" fill="#F2B040" />
+      <LogoPaths />
     </svg>
   );
 }
@@ -17,14 +25,38 @@ export function BrandMark({ className = "" }: { className?: string }) {
 export function Wordmark() {
   return (
     <Link href="/" className="wordmark">
-      <BrandMark />
-      <span>
-        <strong>
-          tunga<span className="brand-dot">.</span>
-        </strong>
-        <span className="wordmark-caption">TECHNOLOGIES</span>
-        <span className="sr-only"> home</span>
-      </span>
+      <svg
+        viewBox="0 0 464 100"
+        fill="none"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <LogoPaths />
+        <text
+          x="117"
+          y="55"
+          fill="currentColor"
+          fontSize="40"
+          letterSpacing="-1.6"
+          textLength="342"
+          lengthAdjust="spacingAndGlyphs"
+        >
+          <tspan fontWeight="750">Tunga</tspan>
+          <tspan fontWeight="300"> Technologies</tspan>
+        </text>
+        <text
+          x="121"
+          y="81"
+          fill="currentColor"
+          fontSize="11.8"
+          letterSpacing="1.5"
+          textLength="337"
+          lengthAdjust="spacingAndGlyphs"
+        >
+          Technology built for Rwanda’s progress.
+        </text>
+      </svg>
+      <span className="sr-only">Tunga Technologies home</span>
     </Link>
   );
 }
@@ -124,11 +156,9 @@ export function ProgressVisual({ compact = false }: { compact?: boolean }) {
           stroke="white"
           strokeOpacity=".25"
         />
-        <path
-          d="m219 229 83-48 35 20-28 16 76 44-28 16-76-44-28 16-34-20Z"
-          fill="white"
-        />
-        <path d="m333 220 24-14 24 14-24 14-24-14Z" fill="#F2B040" />
+        <g transform="matrix(.88 .50 -.88 .50 302 188)" color="white">
+          <LogoPaths />
+        </g>
         <path
           d="M304 121V72M160 272l-49 28-59-34M425 307l64-37 58 33M303 408v57"
           stroke="#196ECC"

@@ -111,7 +111,6 @@ The explicit request included Insights in navigation, so it remains reachable de
 
 ## Company inputs still required
 
-- Final approved Tunga SVG logo (the implementation includes an original provisional wordmark, mark and favicon).
 - Confirmed production domain and the correct Tunga Git remote.
 - Company email, optional phone and genuine social URLs.
 - Approved privacy/terms copy, retention policy, privacy contact and enquiry receiver/API.
@@ -120,6 +119,8 @@ The explicit request included Insights in navigation, so it remains reachable de
 - Approved editorial articles when available. No blog posts were fabricated.
 
 Optional: permission-cleared Rwanda/product-use photography, team photography, and partner logos only if real relationships and publication permission exist. No photography is required for the current abstract design.
+
+The supplied Tunga logo is implemented as a scalable SVG adaptation of its framed TT symbol and horizontal wordmark, using the site's self-hosted Inter font. It appears blue on light surfaces and white on the dark header/footer. Its tagline is retained, and the favicon and illustration mark use the same symbol. An original vector master can replace this adaptation later if exact source typography is needed.
 
 ## Verification and delivery
 
