@@ -2,6 +2,8 @@
 
 Original public website for Tunga Technologies, built from the supplied September 2026 frontend handoff and the user's implementation request. Next.js App Router, React, TypeScript, Tailwind CSS, self-hosted Inter and Lucide icons.
 
+The 22 September redesign follows the user's BK reference direction: a blue announcement strip, overlay-to-white navigation, a full-width landscape hero, an overlapping audience panel, centered product chapters, pale-blue gradients, rectangular buttons and a royal-blue footer. The company content, original artwork and product identity remain Tunga's. Shared visual overrides are in `src/app/theme.css`; structural component styles remain in `src/app/globals.css`.
+
 ## Run locally
 
 Use Node.js 22.13+ (developed with Node 24) and npm.
@@ -50,6 +52,8 @@ With the production server running, `npm run audit:mobile` writes mobile Lightho
 
 Content lives in `src/content/`:
 
+- `home.ts`: audience links and factual company FAQs.
+
 - `site.ts`: navigation, company channels, positioning, approach, values and partnership types.
 - `solutions.ts`: typed product catalogue, product steps, selection criteria and approved screenshots.
 - `impact.ts`: typed metrics with values, source, reporting period and notes. Metrics without a source are displayed as unavailable.
@@ -60,11 +64,12 @@ Shared components in `src/components/`:
 
 - Header and accessible dialog-based mobile navigation, Footer.
 - Wordmark, BrandMark, ProgressVisual and HillsVisual.
+- HeroLandscape and SolutionExplorer with keyboard-accessible product tabs.
 - Container, Button, TextLink, SectionKicker, SectionHeader, Hero, Breadcrumbs and EmptyState.
 - SolutionCard, ProductVisual, ProcessSteps, ImpactMetric, ImpactPreview, InsightCard, PartnerCard and CTASection.
 - ContactForm with contact and partnership variants, and LegalPage.
 
-The homepage's layered landscape and the blue hill illustration are original code-native SVGs. The e-tungo diagram is explicitly identified as a concept illustration. None of these are photographs, claimed product screenshots or evidence of impact.
+The homepage's full-width landscape and the blue hill illustration are original code-native SVGs. The e-tungo diagrams are explicitly identified as concept illustrations. None of these are photographs, claimed product screenshots or evidence of impact. Homepage product tabs support arrow keys, Home and End; FAQs use native accessible disclosure controls.
 
 ## Enquiry delivery
 

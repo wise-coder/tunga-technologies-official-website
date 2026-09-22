@@ -3,6 +3,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { site, indexable } from "@/content/site";
 import "./globals.css";
+import "./theme.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),

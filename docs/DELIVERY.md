@@ -2,13 +2,15 @@
 
 Built from the complete supplied frontend handoff and pasted request on 21 September 2026.
 
+Restyled on 22 September 2026 following the user's request to match BK's structure and color treatment while retaining Tunga's content. The redesign adds an announcement strip, a full-width original landscape hero, an overlapping audience panel, centered headings, e-tungo feature tabs, factual FAQs, soft blue gradients, rectangular buttons and a royal-blue footer. Inner pages share the updated typography, surfaces and navigation.
+
 ## Implemented
 
 All requested routes: `/`, `/about`, `/solutions`, `/solutions/e-tungo`, `/impact`, `/insights`, `/insights/[slug]`, `/partners`, `/contact`, `/privacy`, `/terms`.
 
 The article route renders approved published content from the typed content collection. Because no articles were supplied, unknown and draft articles correctly return 404. The Insights index has an honest, noindex empty state.
 
-The site includes a sticky responsive header, keyboard-contained mobile navigation, original SVG artwork, configurable product cards, a product case study, source-aware impact metrics, a five-stage process, partnership categories, accessible forms, legal drafts, a navy footer, a favicon, Open Graph image, canonical metadata, Organization/product JSON-LD, robots and a sitemap.
+The site includes a sticky responsive header, keyboard-contained mobile navigation, original SVG artwork, configurable product cards, a product case study, source-aware impact metrics, a five-stage process, partnership categories, accessible forms, legal drafts, a blue footer, a favicon, Open Graph image, canonical metadata, Organization/product JSON-LD, robots and a sitemap.
 
 The complete component catalogue and configuration instructions are in [README.md](../README.md). The complete created-file list is in [FILES.md](FILES.md). This was an empty project, so all tracked application files are newly created.
 
@@ -17,12 +19,12 @@ The complete component catalogue and configuration instructions are in [README.m
 - Production build: passed, including Next.js TypeScript validation.
 - ESLint: passed with no errors or warnings.
 - Prettier: passed.
-- Browser suite: 17 checks covering all public pages, five viewport widths (320, 390, 768, 1024 and 1440), internal links, one H1 per page, metadata, crawler restrictions, desktop accessibility, keyboard navigation, mobile focus containment and Escape handling, reduced motion, forms and route errors.
+- Browser suite: 20 checks covering all public pages, five viewport widths (320, 390, 768, 1024 and 1440), internal links, one H1 per page, metadata, crawler restrictions, desktop accessibility, keyboard navigation, mobile focus containment and Escape handling, reduced motion, forms, route errors, product tabs, announcement dismissal, header scroll behavior and FAQs.
 - Form checks cover inline validation, loading, success with a mocked receiver, unavailable delivery, upstream failure, partnership preselection and required fields. API checks cover malformed, cross-origin, oversized and non-JSON requests. **No real message was delivered to a company recipient; that requires the configured destination.**
-- Screenshot review: homepage desktop/mobile and partnership form mobile.
+- Screenshot review: redesigned homepage desktop/mobile and About on mobile; partnership form reviewed in the initial delivery.
 - Console review: no browser console errors across the ten populated public routes.
 - e-tungo destination: correct external URL, new-tab disclosure and safe rel attributes; the live origin responded HTTP 200 in Chrome. Its loading screen persisted during screenshot capture, so it was not republished as a product screenshot.
-- BK reference: requested origin was inspected, but rendered blank in this environment. The supplied handoff's visual direction guided the original implementation; no BK code or assets were used.
+- BK reference: successfully inspected on desktop/mobile on 22 September, including computed colors and typography. Some hero media did not load reliably. The composition and blue visual system informed the redesign; no BK code, logos, photographs or proprietary fonts were included.
 
 The final local mobile Lighthouse run scored **98 performance, 100 accessibility and 100 best practices**. SEO scored **66 because staging is intentionally blocked from indexing**. Measured FCP was about 1.2 seconds, LCP about 2.4 seconds, and layout shift rounded to zero. These are local lab results, not a guarantee of deployed performance. Rerun after production configuration and deployment.
 

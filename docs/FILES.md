@@ -1,6 +1,6 @@
-# Created files
+# Project files
 
-All 51 files below were created in this initially empty project. Generated builds, dependencies, local references and browser reports are excluded.
+The 55 files below comprise the application and its delivery documentation, including the 22 September visual redesign. Generated builds, dependencies, local references and browser reports are excluded.
 
 - .env.example
 - .gitignore
@@ -36,13 +36,17 @@ All 51 files below were created in this initially empty project. Generated build
 - src/app/solutions/e-tungo/page.tsx
 - src/app/solutions/page.tsx
 - src/app/terms/page.tsx
+- src/app/theme.css
 - src/components/brand.tsx
 - src/components/contact-form.tsx
 - src/components/footer.tsx
 - src/components/header.tsx
+- src/components/hero-landscape.tsx
 - src/components/legal-page.tsx
 - src/components/sections.tsx
+- src/components/solution-explorer.tsx
 - src/components/ui.tsx
+- src/content/home.ts
 - src/content/impact.ts
 - src/content/insights.ts
 - src/content/legal.ts

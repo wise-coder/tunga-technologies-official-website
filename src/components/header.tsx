@@ -10,6 +10,15 @@ import { Wordmark } from "./brand";
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [announcement, setAnnouncement] = useState(true);
+  const isHome = pathname === "/";
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 32);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const close = () => {
@@ -52,10 +61,28 @@ export function Header() {
   const active = (href: string) =>
     pathname === href || pathname.startsWith(`${href}/`);
   return (
-    <header className="site-header">
+    <header
+      className={`site-header ${isHome ? "header-home" : ""} ${scrolled ? "is-scrolled" : ""}`}
+    >
+      {announcement && (
+        <div className="announcement">
+          <p>Meet e-tungo. Connecting Rwanda’s livestock marketplace.</p>
+          <Link href="/solutions/e-tungo">Discover e-tungo</Link>
+          <button
+            type="button"
+            aria-label="Dismiss announcement"
+            onClick={() => setAnnouncement(false)}
+          >
+            <X size={17} aria-hidden="true" />
+          </button>
+        </div>
+      )}
       <div className="container header-inner">
         <Wordmark />
         <nav aria-label="Main navigation" className="desktop-nav">
+          <Link href="/" aria-current={isHome ? "page" : undefined}>
+            Home
+          </Link>
           {navigation.map((item) => (
             <Link
               key={item.href}
@@ -66,6 +93,9 @@ export function Header() {
             </Link>
           ))}
         </nav>
+        <Link className="header-secondary" href="/solutions">
+          Our solutions
+        </Link>
         <Link className="header-cta" href="/partners">
           Partner With Us
           <ArrowUpRight size={17} aria-hidden="true" />
@@ -105,6 +135,14 @@ export function Header() {
           </button>
         </div>
         <nav aria-label="Mobile main navigation">
+          <Link
+            href="/"
+            onClick={close}
+            aria-current={isHome ? "page" : undefined}
+          >
+            <span className="menu-index">00</span>Home
+            <ArrowUpRight size={22} aria-hidden="true" />
+          </Link>
           {navigation.map((item, index) => (
             <Link
               key={item.href}

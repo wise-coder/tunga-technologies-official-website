@@ -14,6 +14,56 @@ const routes = [
   "/terms",
 ];
 
+test("product explorer supports mouse and keyboard navigation", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.getByRole("tab", { name: "Discover", exact: true }).click();
+  await expect(page.getByRole("tabpanel")).toContainText(
+    "Discover what’s available around you.",
+  );
+  await page.keyboard.press("ArrowRight");
+  await expect(
+    page.getByRole("tab", { name: "Connect", exact: true }),
+  ).toBeFocused();
+  await expect(page.getByRole("tabpanel")).toContainText(
+    "From discovery to a direct conversation.",
+  );
+  await page.keyboard.press("End");
+  await expect(
+    page.getByRole("tab", { name: "Improve", exact: true }),
+  ).toHaveAttribute("aria-selected", "true");
+  await page.keyboard.press("Home");
+  await expect(page.getByRole("tabpanel")).toContainText(
+    "Let the right buyers find you.",
+  );
+});
+
+test("announcement dismisses and header changes after scrolling", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await expect(page.locator(".site-header")).not.toHaveClass(/is-scrolled/);
+  await page.evaluate(() => window.scrollTo(0, 500));
+  await expect(page.locator(".site-header")).toHaveClass(/is-scrolled/);
+  await page.getByRole("button", { name: "Dismiss announcement" }).click();
+  await expect(page.locator(".announcement")).toHaveCount(0);
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await expect(page.locator(".site-header")).not.toHaveClass(/is-scrolled/);
+});
+
+test("homepage questions expand with keyboard", async ({ page }) => {
+  await page.goto("/");
+  const question = page
+    .locator(".faq-list details")
+    .filter({ hasText: "How is e-tungo connected to Tunga?" });
+  await expect(question).not.toHaveAttribute("open", "");
+  await question.locator("summary").focus();
+  await page.keyboard.press("Enter");
+  await expect(question).toHaveAttribute("open", "");
+  await expect(question.locator("p")).toBeVisible();
+});
+
 for (const route of routes) {
   test(`${route}: renders, metadata, links, accessibility and responsive layout`, async ({
     page,
