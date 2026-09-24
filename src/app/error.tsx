@@ -1,6 +1,8 @@
 "use client";
 import { useEffect } from "react";
 import Link from "next/link";
+import { SlideText } from "@/components/ui";
+
 export default function ErrorPage({
   error,
   reset,
@@ -20,7 +22,7 @@ export default function ErrorPage({
         </p>
         <div className="button-row">
           <button className="button button-primary" onClick={reset}>
-            Try again
+            <SlideText>Try again</SlideText>
           </button>
           <Link href="/" className="button button-secondary">
             Back to home

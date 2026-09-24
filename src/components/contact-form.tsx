@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, CheckCircle2, LoaderCircle } from "lucide-react";
+import { SlideText } from "./ui";
 import { partnershipTypes } from "@/content/site";
 import {
   contactTopics,
@@ -261,7 +262,7 @@ export function ContactForm({
           </>
         ) : (
           <>
-            Send {partnership ? "enquiry" : "message"}
+            <SlideText>{`Send ${partnership ? "enquiry" : "message"}`}</SlideText>
             <ArrowRight size={18} aria-hidden="true" />
           </>
         )}

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import {
-  ArrowDown,
   ArrowRight,
   BadgeCheck,
   ChartNoAxesCombined,
@@ -15,7 +14,7 @@ import {
 import { HillsVisual } from "@/components/brand";
 import { HeroLandscape } from "@/components/hero-landscape";
 import { SolutionExplorer } from "@/components/solution-explorer";
-import { Button, Container, SectionHeader, TextLink } from "@/components/ui";
+import { Button, Container, FoldText, SectionHeader, TextLink } from "@/components/ui";
 import { CTASection, ImpactPreview, ProcessSteps } from "@/components/sections";
 import { audienceLinks, homeQuestions } from "@/content/home";
 import { site } from "@/content/site";
@@ -36,9 +35,13 @@ export default function HomePage() {
           <div className="home-hero-copy">
             <p className="hero-eyebrow">TUNGA TECHNOLOGIES</p>
             <h1>
-              Technology built for
-              <br />
-              Rwanda’s progress.
+              <FoldText
+                text={"Technology built for\nRwanda’s progress."}
+                splitBy="chars"
+                stagger={30}
+                duration={650}
+                hinge="top"
+              />
             </h1>
             <p>{site.description}</p>
             <div className="button-row">
@@ -79,13 +82,6 @@ export default function HomePage() {
                 </Link>
               ))}
             </nav>
-            <a
-              href="#what-we-do"
-              className="section-jump"
-              aria-label="Discover what Tunga does"
-            >
-              <ArrowDown size={25} aria-hidden="true" />
-            </a>
           </div>
         </Container>
       </div>

@@ -6,19 +6,37 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { navigation } from "@/content/site";
 import { Wordmark } from "./brand";
+import { SlideText } from "./ui";
 
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [announcement, setAnnouncement] = useState(true);
+  const [toastVisible, setToastVisible] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
   const isHome = pathname === "/";
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 32);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 8);
+      if (isHome && !dismissed) {
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const distanceToBottom = documentHeight - (scrollTop + windowHeight);
+        const footerBottom = document.querySelector(".footer-bottom");
+        const footerBottomReached = footerBottom
+          ? footerBottom.getBoundingClientRect().top <= windowHeight - 10
+          : false;
+        const reachedFooterBase = distanceToBottom <= 80 || footerBottomReached;
+        if (reachedFooterBase) {
+          setToastVisible(true);
+        }
+      }
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [isHome, dismissed]);
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const close = () => {
@@ -61,60 +79,50 @@ export function Header() {
   const active = (href: string) =>
     pathname === href || pathname.startsWith(`${href}/`);
   return (
-    <header
-      className={`site-header ${isHome ? "header-home" : ""} ${scrolled ? "is-scrolled" : ""}`}
-    >
-      {announcement && (
-        <div className="announcement">
-          <p>Meet e-tungo. Connecting Rwanda’s livestock marketplace.</p>
-          <Link href="/solutions/e-tungo">Discover e-tungo</Link>
+    <>
+      <header
+        className={`site-header ${isHome ? "header-home" : ""} ${scrolled ? "is-scrolled" : ""}`}
+      >
+        <div className="header-bar">
+          <div className="container header-inner">
+            <Wordmark />
+          <nav aria-label="Main navigation" className="desktop-nav">
+            <Link href="/" aria-current={isHome ? "page" : undefined}>
+              Home
+            </Link>
+            {navigation.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={active(item.href) ? "page" : undefined}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+          <Link className="header-secondary" href="/solutions">
+            Our solutions
+          </Link>
+          <Link className="header-cta" href="/partners">
+            <SlideText>Partner With Us</SlideText>
+            <ArrowUpRight size={17} aria-hidden="true" />
+          </Link>
           <button
+            className="menu-toggle"
+            ref={trigger}
             type="button"
-            aria-label="Dismiss announcement"
-            onClick={() => setAnnouncement(false)}
+            aria-label="Open navigation"
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
+            onClick={() => {
+              dialog.current?.showModal();
+              setOpen(true);
+            }}
           >
-            <X size={17} aria-hidden="true" />
+            <Menu aria-hidden="true" />
           </button>
         </div>
-      )}
-      <div className="container header-inner">
-        <Wordmark />
-        <nav aria-label="Main navigation" className="desktop-nav">
-          <Link href="/" aria-current={isHome ? "page" : undefined}>
-            Home
-          </Link>
-          {navigation.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              aria-current={active(item.href) ? "page" : undefined}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-        <Link className="header-secondary" href="/solutions">
-          Our solutions
-        </Link>
-        <Link className="header-cta" href="/partners">
-          Partner With Us
-          <ArrowUpRight size={17} aria-hidden="true" />
-        </Link>
-        <button
-          className="menu-toggle"
-          ref={trigger}
-          type="button"
-          aria-label="Open navigation"
-          aria-expanded={open}
-          aria-controls="mobile-navigation"
-          onClick={() => {
-            dialog.current?.showModal();
-            setOpen(true);
-          }}
-        >
-          <Menu aria-hidden="true" />
-        </button>
-      </div>
+        </div>
       <dialog
         id="mobile-navigation"
         className="mobile-menu"
@@ -160,7 +168,7 @@ export function Header() {
             onClick={close}
             className="button button-primary"
           >
-            Partner With Us
+            <SlideText>Partner With Us</SlideText>
             <ArrowUpRight size={18} aria-hidden="true" />
           </Link>
         </nav>
@@ -169,5 +177,34 @@ export function Header() {
         </p>
       </dialog>
     </header>
+      {isHome && toastVisible && !dismissed && (
+        <aside
+          className="announcement announcement-toast"
+          role="region"
+          aria-label="Announcement"
+        >
+          <div className="announcement-toast-inner">
+            <p>Meet e-tungo. Connecting Rwanda’s livestock marketplace.</p>
+            <div className="announcement-actions">
+              <Link href="/solutions/e-tungo" className="announcement-cta">
+                Discover e-tungo
+                <ArrowUpRight size={14} aria-hidden="true" />
+              </Link>
+              <button
+                type="button"
+                className="announcement-dismiss"
+                aria-label="Dismiss announcement"
+                onClick={() => {
+                  setDismissed(true);
+                  setToastVisible(false);
+                }}
+              >
+                <X size={16} aria-hidden="true" />
+              </button>
+            </div>
+          </div>
+        </aside>
+      )}
+    </>
   );
 }

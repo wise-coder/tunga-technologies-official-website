@@ -6,6 +6,7 @@ import {
   MoveUpRight,
 } from "lucide-react";
 import type { ReactNode } from "react";
+import { SplitText } from "./split-text";
 
 export function Container({
   children,
@@ -15,6 +16,41 @@ export function Container({
   className?: string;
 }) {
   return <div className={`container ${className}`}>{children}</div>;
+}
+
+export function SlideText({ children }: { children: ReactNode }) {
+  if (typeof children !== "string") {
+    return (
+      <span className="btn-label">
+        <span className="btn-label-inner">
+          <span className="btn-text">{children}</span>
+          <span className="btn-text" aria-hidden="true">
+            {children}
+          </span>
+        </span>
+      </span>
+    );
+  }
+
+  const words = children.trim().split(/\s+/);
+  return (
+    <span className="btn-words-wrap">
+      {words.map((word, i) => (
+        <span
+          key={i}
+          className="btn-word-label"
+          style={{ "--word-index": i } as React.CSSProperties}
+        >
+          <span className="btn-word-inner">
+            <span className="btn-word-text">{word}</span>
+            <span className="btn-word-text" aria-hidden="true">
+              {word}
+            </span>
+          </span>
+        </span>
+      ))}
+    </span>
+  );
 }
 
 export function Button({
@@ -32,7 +68,7 @@ export function Button({
 }) {
   const contents = (
     <>
-      {children}
+      <SlideText>{children}</SlideText>
       {external ? (
         <ArrowUpRight size={18} aria-hidden="true" />
       ) : (
@@ -83,6 +119,8 @@ export function SectionKicker({ children }: { children: ReactNode }) {
   );
 }
 
+
+
 export function SectionHeader({
   kicker,
   title,
@@ -98,7 +136,7 @@ export function SectionHeader({
     <div className="section-header">
       <div>
         {kicker && <SectionKicker>{kicker}</SectionKicker>}
-        <h2>{title}</h2>
+        <SplitText tag="h2" text={title} delay={20} splitType="chars" />
         {description && <p className="section-description">{description}</p>}
       </div>
       {children}
@@ -124,7 +162,7 @@ export function Hero({
       <Container>
         <SectionKicker>{kicker}</SectionKicker>
         <div className="page-hero-grid">
-          <h1>{title}</h1>
+          <SplitText tag="h1" text={title} delay={18} splitType="chars" />
           <div className="page-hero-aside">
             <p>{description}</p>
             {children}
@@ -182,3 +220,10 @@ export function EmptyState({
     </div>
   );
 }
+
+export { BlurText } from "./blur-text";
+export { SplitText } from "./split-text";
+export { FoldText } from "./fold-text";
+export { TextType } from "./text-type";
+
+

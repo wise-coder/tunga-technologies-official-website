@@ -12,6 +12,7 @@ import {
   Sprout,
 } from "lucide-react";
 import { etungo, productSteps } from "@/content/solutions";
+import { BlurText } from "./blur-text";
 
 const features = [
   {
@@ -115,13 +116,33 @@ export function SolutionExplorer() {
             <Sprout size={22} aria-hidden="true" />
             e-tungo<span className="status-pill">Live</span>
           </span>
-          <h3>{feature.title}</h3>
-          <p>{productSteps[selected].description}</p>
+          <BlurText
+            as="h3"
+            text={feature.title}
+            triggerKey={selected}
+            delay={30}
+            stepDuration={32}
+            direction="bottom"
+          />
+          <BlurText
+            as="p"
+            text={productSteps[selected].description}
+            triggerKey={selected}
+            delay={130}
+            stepDuration={24}
+            direction="bottom"
+          />
           <ul>
-            {feature.points.map((point) => (
+            {feature.points.map((point, index) => (
               <li key={point}>
                 <Check size={17} aria-hidden="true" />
-                {point}
+                <BlurText
+                  text={point}
+                  triggerKey={selected}
+                  delay={230 + index * 95}
+                  stepDuration={30}
+                  direction="bottom"
+                />
               </li>
             ))}
           </ul>

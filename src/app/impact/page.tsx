@@ -1,4 +1,4 @@
-import { Container, Hero, SectionHeader, SectionKicker } from "@/components/ui";
+import { BlurText, Container, Hero, SectionHeader, SectionKicker, SplitText } from "@/components/ui";
 import { CTASection, ImpactMetric } from "@/components/sections";
 import { impactFramework, impactMetrics } from "@/content/impact";
 import { pageMetadata } from "@/lib/metadata";
@@ -22,7 +22,7 @@ export default function ImpactPage() {
           <SectionHeader
             kicker="Our progress"
             title="Evidence before claims."
-            description="The figures below reflect what we can substantiate. A dash means verified data has not yet been published."
+            description="The figures below reflect what we can substantiate. Verified data will be published as it becomes available."
           />
           <div className="impact-full-grid">
             {impactMetrics.map((metric) => (
@@ -41,9 +41,27 @@ export default function ImpactPage() {
             {impactFramework.map((item, index) => (
               <article className="framework-card" key={item.title}>
                 <span className="framework-number">0{index + 1}</span>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-                <p>{item.detail}</p>
+                <BlurText
+                  as="h3"
+                  text={item.title}
+                  delay={index * 90}
+                  stepDuration={30}
+                  direction="bottom"
+                />
+                <BlurText
+                  as="p"
+                  text={item.description}
+                  delay={index * 90 + 45}
+                  stepDuration={22}
+                  direction="bottom"
+                />
+                <BlurText
+                  as="p"
+                  text={item.detail}
+                  delay={index * 90 + 90}
+                  stepDuration={22}
+                  direction="bottom"
+                />
               </article>
             ))}
           </div>
@@ -53,7 +71,11 @@ export default function ImpactPage() {
         <Container>
           <div className="evidence-note">
             <SectionKicker>A growing record of learning</SectionKicker>
-            <h2>Every result needs a source.</h2>
+            <SplitText
+              tag="h2"
+              text="Every result needs a source."
+              delay={20}
+            />
             <p>
               Our evidence will bring together product activity, user feedback
               and verified outcomes. Case studies, pilot results and community

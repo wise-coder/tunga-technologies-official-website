@@ -6,6 +6,7 @@ import {
   Hero,
   SectionHeader,
   SectionKicker,
+  SplitText,
   TextLink,
 } from "@/components/ui";
 import { partnershipTypes } from "@/content/site";
@@ -68,7 +69,11 @@ export default async function PartnersPage({
           <div className="form-layout">
             <div className="form-intro">
               <SectionKicker>Start a conversation</SectionKicker>
-              <h2>Tell us what problem you’re trying to solve.</h2>
+              <SplitText
+                tag="h2"
+                text="Tell us what problem you’re trying to solve."
+                delay={20}
+              />
               <p>
                 Share a little about your organization, the people you serve and
                 the opportunity you see.

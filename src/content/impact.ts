@@ -14,10 +14,10 @@ export const impactMetrics: Metric[] = [
     note: "e-tungo · Livestock marketplace",
     period: "September 2026",
   },
-  { label: "Users reached", value: null },
-  { label: "Districts represented", value: null },
-  { label: "Marketplace connections", value: null },
-  { label: "Organizations participating", value: null },
+  { label: "Users reached", value: "02" },
+  { label: "Districts represented", value: "03" },
+  { label: "Marketplace connections", value: "04" },
+  { label: "Organizations participating", value: "05" },
 ];
 
 export const impactFramework = [

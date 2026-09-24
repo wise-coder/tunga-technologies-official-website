@@ -1,5 +1,5 @@
 import { Compass, Focus } from "lucide-react";
-import { Container, Hero, SectionHeader, SectionKicker } from "@/components/ui";
+import { BlurText, Container, Hero, SectionHeader, SectionKicker, SplitText } from "@/components/ui";
 import { CTASection, ProcessSteps } from "@/components/sections";
 import { values } from "@/content/site";
 import { pageMetadata } from "@/lib/metadata";
@@ -24,9 +24,12 @@ export default function AboutPage() {
           <div className="purpose-grid">
             <div>
               <SectionKicker>Our purpose</SectionKicker>
-              <h2 className="purpose-title">
-                Technology should solve something that matters.
-              </h2>
+              <SplitText
+                tag="h2"
+                className="purpose-title"
+                text="Technology should solve something that matters."
+                delay={20}
+              />
             </div>
             <p>
               Tunga Technologies identifies social and economic challenges,
@@ -72,15 +75,31 @@ export default function AboutPage() {
           <div className="values-layout">
             <div>
               <SectionKicker>What we stand for</SectionKicker>
-              <h2>Principles that show up in the work.</h2>
+              <SplitText
+                tag="h2"
+                text="Principles that show up in the work."
+                delay={20}
+              />
             </div>
             <ol className="values-list">
               {values.map((value, index) => (
                 <li key={value.title}>
                   <span>0{index + 1}</span>
                   <div>
-                    <h3>{value.title}</h3>
-                    <p>{value.description}</p>
+                    <BlurText
+                      as="h3"
+                      text={value.title}
+                      delay={index * 90}
+                      stepDuration={30}
+                      direction="bottom"
+                    />
+                    <BlurText
+                      as="p"
+                      text={value.description}
+                      delay={index * 90 + 45}
+                      stepDuration={22}
+                      direction="bottom"
+                    />
                   </div>
                 </li>
               ))}

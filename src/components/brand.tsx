@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 function LogoPaths() {
   return (
@@ -25,37 +26,24 @@ export function BrandMark({ className = "" }: { className?: string }) {
 export function Wordmark() {
   return (
     <Link href="/" className="wordmark">
-      <svg
-        viewBox="0 0 464 100"
-        fill="none"
+      <Image
+        src="/blue.png"
+        alt=""
+        width={160}
+        height={160}
+        className="wordmark-logo wordmark-logo-light"
         aria-hidden="true"
-        focusable="false"
-      >
-        <LogoPaths />
-        <text
-          x="117"
-          y="55"
-          fill="currentColor"
-          fontSize="40"
-          letterSpacing="-1.6"
-          textLength="342"
-          lengthAdjust="spacingAndGlyphs"
-        >
-          <tspan fontWeight="750">Tunga</tspan>
-          <tspan fontWeight="300"> Technologies</tspan>
-        </text>
-        <text
-          x="121"
-          y="81"
-          fill="currentColor"
-          fontSize="11.8"
-          letterSpacing="1.5"
-          textLength="337"
-          lengthAdjust="spacingAndGlyphs"
-        >
-          Technology built for Rwanda’s progress.
-        </text>
-      </svg>
+        priority
+      />
+      <Image
+        src="/white.png"
+        alt=""
+        width={160}
+        height={160}
+        className="wordmark-logo wordmark-logo-dark"
+        aria-hidden="true"
+        priority
+      />
       <span className="sr-only">Tunga Technologies home</span>
     </Link>
   );
@@ -77,7 +65,7 @@ export function ProgressVisual({ compact = false }: { compact?: boolean }) {
         viewBox="0 0 600 560"
         fill="none"
         role="img"
-        aria-label="Original illustration of connected blue terraces, inspired by Rwanda’s hills, rising toward a Tunga monogram."
+        aria-label="Original illustration of connected blue terraces, inspired by Rwanda's hills, rising toward a Tunga monogram."
       >
         <defs>
           <pattern

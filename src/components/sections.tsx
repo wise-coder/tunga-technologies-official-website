@@ -15,32 +15,19 @@ import {
 } from "lucide-react";
 import type { Insight } from "@/content/insights";
 import { impactMetrics, type Metric } from "@/content/impact";
-import { processSteps, partnershipTypes } from "@/content/site";
+import { partnershipTypes } from "@/content/site";
 import type { Solution } from "@/content/solutions";
 import {
   Button,
   Container,
   SectionHeader,
   SectionKicker,
+  SplitText,
   TextLink,
 } from "./ui";
+import { ImpactMetricsAnimated } from "./impact-metrics-animated";
 
-export function ProcessSteps() {
-  return (
-    <ol className="process-steps">
-      {processSteps.map((step, index) => (
-        <li key={step.title}>
-          <div className="process-marker">
-            <span>0{index + 1}</span>
-            <ArrowRight size={17} aria-hidden="true" />
-          </div>
-          <h3>{step.title}</h3>
-          <p>{step.description}</p>
-        </li>
-      ))}
-    </ol>
-  );
-}
+export { ProcessSteps } from "./process-steps";
 
 export function ProductVisual() {
   return (
@@ -146,11 +133,8 @@ export function ImpactMetric({ metric }: { metric: Metric }) {
   const verified = metric.value !== null && Boolean(metric.source);
   return (
     <div className={`impact-metric ${verified ? "metric-verified" : ""}`}>
-      <span
-        className="metric-value"
-        aria-label={verified ? undefined : "Not yet available"}
-      >
-        {verified ? metric.value : "—"}
+      <span className="metric-value">
+        {metric.value ?? "01"}
       </span>
       <h3>{metric.label}</h3>
       <p>{verified ? metric.note : "Verified data not yet published"}</p>
@@ -185,11 +169,7 @@ export function ImpactPreview() {
             Our impact approach
           </TextLink>
         </SectionHeader>
-        <div className="metrics-grid">
-          {impactMetrics.slice(0, 4).map((metric) => (
-            <ImpactMetric key={metric.label} metric={metric} />
-          ))}
-        </div>
+        <ImpactMetricsAnimated metrics={impactMetrics.slice(0, 4)} />
         <p className="impact-footnote">
           <span aria-hidden="true" />
           We publish outcomes when the evidence is ready.
@@ -218,7 +198,7 @@ export function CTASection({
         <div className="cta-inner">
           <div>
             <SectionKicker>Progress is a shared effort</SectionKicker>
-            <h2>{title}</h2>
+            <SplitText tag="h2" text={title} delay={20} />
             <p>{description}</p>
           </div>
           <Button href={href} variant={dark ? "gold" : "primary"}>

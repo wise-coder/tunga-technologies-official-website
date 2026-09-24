@@ -39,13 +39,15 @@ test("product explorer supports mouse and keyboard navigation", async ({
   );
 });
 
-test("announcement dismisses and header changes after scrolling", async ({
+test("announcement toast pops on bottom scroll, dismisses and header changes after scrolling", async ({
   page,
 }) => {
   await page.goto("/");
   await expect(page.locator(".site-header")).not.toHaveClass(/is-scrolled/);
-  await page.evaluate(() => window.scrollTo(0, 500));
+  await expect(page.locator(".announcement")).toHaveCount(0);
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
   await expect(page.locator(".site-header")).toHaveClass(/is-scrolled/);
+  await expect(page.locator(".announcement")).toHaveCount(1);
   await page.getByRole("button", { name: "Dismiss announcement" }).click();
   await expect(page.locator(".announcement")).toHaveCount(0);
   await page.evaluate(() => window.scrollTo(0, 0));

@@ -1,6 +1,6 @@
 import { ArrowUpRight, Mail, Phone } from "lucide-react";
 import { ContactForm } from "@/components/contact-form";
-import { Container, Hero, SectionKicker, TextLink } from "@/components/ui";
+import { Container, Hero, SectionKicker, SplitText, TextLink } from "@/components/ui";
 import { site } from "@/content/site";
 import { enquiryDeliveryReady } from "@/lib/form-config";
 import { pageMetadata } from "@/lib/metadata";
@@ -24,7 +24,11 @@ export default function ContactPage() {
           <div className="form-layout">
             <div className="form-intro">
               <SectionKicker>We’re here to listen</SectionKicker>
-              <h2>Good solutions start with a conversation.</h2>
+              <SplitText
+                tag="h2"
+                text="Good solutions start with a conversation."
+                delay={20}
+              />
               <p>
                 Tell us what you’re working on, what you need or what could work
                 better. Your perspective is a useful place to begin.

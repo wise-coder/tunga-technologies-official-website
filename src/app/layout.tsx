@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { site, indexable } from "@/content/site";
 import "./globals.css";
 import "./theme.css";
@@ -36,6 +37,7 @@ export default function RootLayout({
           Skip to content
         </a>
         <Header />
+        <ScrollReveal />
         <main id="main-content" tabIndex={-1}>
           {children}
         </main>
