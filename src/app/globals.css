@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "@fontsource-variable/inter";
+@import "lenis/dist/lenis.css";
 
 @theme inline {
   --color-blue: #196ecc;
@@ -24,8 +25,10 @@
   box-sizing: border-box;
 }
 html {
-  scroll-behavior: smooth;
   scroll-padding-top: 104px;
+}
+html:not(.lenis) {
+  scroll-behavior: smooth;
 }
 body {
   margin: 0;
