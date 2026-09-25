@@ -84,7 +84,7 @@ export function Header() {
         className={`site-header ${isHome ? "header-home" : ""} ${scrolled ? "is-scrolled" : ""}`}
       >
         <div className="header-bar">
-          <div className="container header-inner">
+          <div className="header-inner">
             <Wordmark />
           <nav aria-label="Main navigation" className="desktop-nav">
             <Link href="/" aria-current={isHome ? "page" : undefined}>
