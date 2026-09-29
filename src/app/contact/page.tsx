@@ -1,4 +1,5 @@
 import { ArrowUpRight, Mail, Phone } from "lucide-react";
+import Image from "next/image";
 import { ContactForm } from "@/components/contact-form";
 import { Container, Hero, SectionKicker, SplitText, TextLink } from "@/components/ui";
 import { site } from "@/content/site";
@@ -14,11 +15,20 @@ export const metadata = pageMetadata(
 export default function ContactPage() {
   return (
     <>
-      <Hero
-        kicker="Start a conversation"
-        title="Talk to Tunga Technologies."
-        description="Have a problem worth solving, a partnership idea, or a question about one of our products? Send us a message."
-      />
+      <div className="contact-hero">
+        <Image
+          src="/contact-landscape.png"
+          alt=""
+          fill
+          sizes="100vw"
+          preload
+        />
+        <Hero
+          kicker="Start a conversation"
+          title="Talk to Tunga Technologies."
+          description="Have a problem worth solving, a partnership idea, or a question about one of our products? Send us a message."
+        />
+      </div>
       <section className="section section-soft">
         <Container>
           <div className="form-layout">

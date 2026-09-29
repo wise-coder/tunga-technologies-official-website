@@ -117,6 +117,18 @@ export function Header() {
         className="mobile-menu"
         ref={dialog}
         onKeyDown={trapFocus}
+        onClick={(event) => {
+          if (event.target !== event.currentTarget) return;
+          const bounds = event.currentTarget.getBoundingClientRect();
+          if (
+            event.clientX < bounds.left ||
+            event.clientX > bounds.right ||
+            event.clientY < bounds.top ||
+            event.clientY > bounds.bottom
+          ) {
+            close();
+          }
+        }}
         onClose={() => setOpen(false)}
         onCancel={close}
         aria-label="Mobile navigation"
