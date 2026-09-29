@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   BadgeCheck,
@@ -11,7 +12,6 @@ import {
   Sprout,
   Workflow,
 } from "lucide-react";
-import { HillsVisual } from "@/components/brand";
 import { HeroLandscape } from "@/components/hero-landscape";
 import { SolutionExplorer } from "@/components/solution-explorer";
 import { Button, Container, FoldText, SectionHeader, TextLink } from "@/components/ui";
@@ -41,6 +41,7 @@ export default function HomePage() {
                 stagger={30}
                 duration={650}
                 hinge="top"
+                trigger="mount"
               />
             </h1>
             <p>{site.description}</p>
@@ -151,7 +152,14 @@ export default function HomePage() {
             description="Our solutions are designed around real development challenges, with attention to digital transformation, market access, productivity, entrepreneurship and inclusive economic opportunity."
           />
           <div className="transformation-panel">
-            <HillsVisual />
+            <Image
+              className="transformation-image"
+              src="/nature image.png"
+              alt="Rwandan hills, farms, water, and a connected city landscape"
+              width={1448}
+              height={1086}
+              sizes="(max-width: 767px) calc(100vw - 48px), 50vw"
+            />
             <div>
               <h3>
                 Local understanding.

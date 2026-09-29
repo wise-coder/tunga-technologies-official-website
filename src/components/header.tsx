@@ -6,37 +6,21 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { navigation } from "@/content/site";
 import { Wordmark } from "./brand";
-import { SlideText } from "./ui";
+import { ArrowSlideContent } from "./ui";
 
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [toastVisible, setToastVisible] = useState(false);
-  const [dismissed, setDismissed] = useState(false);
   const isHome = pathname === "/";
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 8);
-      if (isHome && !dismissed) {
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight;
-        const scrollTop = window.scrollY || document.documentElement.scrollTop;
-        const distanceToBottom = documentHeight - (scrollTop + windowHeight);
-        const footerBottom = document.querySelector(".footer-bottom");
-        const footerBottomReached = footerBottom
-          ? footerBottom.getBoundingClientRect().top <= windowHeight - 10
-          : false;
-        const reachedFooterBase = distanceToBottom <= 80 || footerBottomReached;
-        if (reachedFooterBase) {
-          setToastVisible(true);
-        }
-      }
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [isHome, dismissed]);
+  }, []);
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const close = () => {
@@ -104,8 +88,9 @@ export function Header() {
             Our solutions
           </Link>
           <Link className="header-cta" href="/partners">
-            <SlideText>Partner With Us</SlideText>
-            <ArrowUpRight size={17} aria-hidden="true" />
+            <ArrowSlideContent arrow={<ArrowUpRight size={17} aria-hidden="true" />} direction="up-right">
+              Partner With Us
+            </ArrowSlideContent>
           </Link>
           <button
             className="menu-toggle"
@@ -168,8 +153,9 @@ export function Header() {
             onClick={close}
             className="button button-primary"
           >
-            <SlideText>Partner With Us</SlideText>
-            <ArrowUpRight size={18} aria-hidden="true" />
+            <ArrowSlideContent arrow={<ArrowUpRight size={18} aria-hidden="true" />} direction="up-right">
+              Partner With Us
+            </ArrowSlideContent>
           </Link>
         </nav>
         <p className="mobile-menu-footer">
@@ -177,34 +163,6 @@ export function Header() {
         </p>
       </dialog>
     </header>
-      {isHome && toastVisible && !dismissed && (
-        <aside
-          className="announcement announcement-toast"
-          role="region"
-          aria-label="Announcement"
-        >
-          <div className="announcement-toast-inner">
-            <p>Meet e-tungo. Connecting Rwanda’s livestock marketplace.</p>
-            <div className="announcement-actions">
-              <Link href="/solutions/e-tungo" className="announcement-cta">
-                Discover e-tungo
-                <ArrowUpRight size={14} aria-hidden="true" />
-              </Link>
-              <button
-                type="button"
-                className="announcement-dismiss"
-                aria-label="Dismiss announcement"
-                onClick={() => {
-                  setDismissed(true);
-                  setToastVisible(false);
-                }}
-              >
-                <X size={16} aria-hidden="true" />
-              </button>
-            </div>
-          </div>
-        </aside>
-      )}
     </>
   );
 }

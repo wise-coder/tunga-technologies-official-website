@@ -1,92 +1,149 @@
-// Original vector artwork: a connected landscape, not a photograph or impact evidence.
+"use client";
+
+import { useEffect, useRef } from "react";
+
+type Particle = {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  phase: number;
+};
+
+const BASE_BLUE = "#07396e";
+const MAX_DEVICE_PIXEL_RATIO = 2;
+
+// A lightweight, dependency-free particle mesh inspired by the requested
+// Particle Drift treatment. The mesh uses white as its pointer interaction color.
 export function HeroLandscape() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return undefined;
+
+    const hero = canvas.closest<HTMLElement>(".home-hero");
+    const context = canvas.getContext("2d");
+    if (!hero || !context) return undefined;
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const pointer = { x: -Infinity, y: -Infinity };
+    let particles: Particle[] = [];
+    let width = 0;
+    let height = 0;
+    let frame = 0;
+    let animationFrame = 0;
+
+    const createParticles = () => {
+      const count = Math.min(165, Math.max(65, Math.round((width * height) / 14500)));
+      particles = Array.from({ length: count }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.18,
+        vy: (Math.random() - 0.5) * 0.18,
+        phase: Math.random() * Math.PI * 2,
+      }));
+    };
+
+    const resize = () => {
+      const bounds = hero.getBoundingClientRect();
+      width = Math.max(1, bounds.width);
+      height = Math.max(1, bounds.height);
+      const pixelRatio = Math.min(window.devicePixelRatio || 1, MAX_DEVICE_PIXEL_RATIO);
+      canvas.width = Math.round(width * pixelRatio);
+      canvas.height = Math.round(height * pixelRatio);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+      createParticles();
+    };
+
+    const draw = () => {
+      context.clearRect(0, 0, width, height);
+      context.fillStyle = BASE_BLUE;
+      context.fillRect(0, 0, width, height);
+
+      for (const particle of particles) {
+        if (!reducedMotion) {
+          particle.x += particle.vx + Math.sin(frame * 0.005 + particle.phase) * 0.08;
+          particle.y += particle.vy + Math.cos(frame * 0.004 + particle.phase) * 0.08;
+          if (particle.x < -8) particle.x = width + 8;
+          if (particle.x > width + 8) particle.x = -8;
+          if (particle.y < -8) particle.y = height + 8;
+          if (particle.y > height + 8) particle.y = -8;
+        }
+      }
+
+      for (let index = 0; index < particles.length; index += 1) {
+        const particle = particles[index];
+        const pointerDistance = Math.hypot(particle.x - pointer.x, particle.y - pointer.y);
+        const highlight = Math.max(0, 1 - pointerDistance / 180);
+
+        for (let nextIndex = index + 1; nextIndex < particles.length; nextIndex += 1) {
+          const next = particles[nextIndex];
+          const distance = Math.hypot(particle.x - next.x, particle.y - next.y);
+          if (distance > 108) continue;
+
+          const nextHighlight = Math.max(
+            0,
+            1 - Math.hypot(next.x - pointer.x, next.y - pointer.y) / 180,
+          );
+          const brightness = Math.max(highlight, nextHighlight);
+          context.beginPath();
+          context.moveTo(particle.x, particle.y);
+          context.lineTo(next.x, next.y);
+          context.strokeStyle = `rgba(255, 255, 255, ${0.055 + brightness * 0.28})`;
+          context.lineWidth = 0.65 + brightness * 0.55;
+          context.stroke();
+        }
+
+        context.beginPath();
+        context.arc(particle.x, particle.y, 1.15 + highlight * 1.45, 0, Math.PI * 2);
+        context.fillStyle = `rgba(255, 255, 255, ${0.34 + highlight * 0.66})`;
+        context.fill();
+      }
+    };
+
+    const animate = () => {
+      frame += 1;
+      draw();
+      animationFrame = window.requestAnimationFrame(animate);
+    };
+
+    const handlePointerMove = (event: PointerEvent) => {
+      const bounds = hero.getBoundingClientRect();
+      pointer.x = event.clientX - bounds.left;
+      pointer.y = event.clientY - bounds.top;
+    };
+
+    const handlePointerLeave = () => {
+      pointer.x = -Infinity;
+      pointer.y = -Infinity;
+    };
+
+    const resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(hero);
+    hero.addEventListener("pointermove", handlePointerMove);
+    hero.addEventListener("pointerleave", handlePointerLeave);
+    resize();
+
+    if (reducedMotion) {
+      draw();
+    } else {
+      animate();
+    }
+
+    return () => {
+      resizeObserver.disconnect();
+      hero.removeEventListener("pointermove", handlePointerMove);
+      hero.removeEventListener("pointerleave", handlePointerLeave);
+      window.cancelAnimationFrame(animationFrame);
+    };
+  }, []);
+
   return (
-    <div className="hero-landscape" aria-hidden="true">
-      <svg
-        viewBox="0 0 1600 900"
-        preserveAspectRatio="xMidYMid slice"
-        fill="none"
-      >
-        <defs>
-          <linearGradient
-            id="land-sky"
-            x1="0"
-            y1="100"
-            x2="1600"
-            y2="700"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stopColor="#07396E" />
-            <stop offset=".52" stopColor="#116AB4" />
-            <stop offset="1" stopColor="#82B6DD" />
-          </linearGradient>
-          <linearGradient
-            id="land-hill"
-            x1="870"
-            y1="200"
-            x2="1200"
-            y2="950"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stopColor="#5CA0CD" />
-            <stop offset="1" stopColor="#0E5693" />
-          </linearGradient>
-          <linearGradient id="land-shade">
-            <stop stopColor="#063465" stopOpacity=".88" />
-            <stop offset=".55" stopColor="#063465" stopOpacity=".32" />
-            <stop offset="1" stopColor="#063465" stopOpacity="0" />
-          </linearGradient>
-          <radialGradient id="land-glow">
-            <stop stopColor="#DBEEFF" stopOpacity=".45" />
-            <stop offset="1" stopColor="#DBEEFF" stopOpacity="0" />
-          </radialGradient>
-        </defs>
-        <path d="M0 0h1600v900H0z" fill="url(#land-sky)" />
-        <ellipse cx="1290" cy="190" rx="430" ry="360" fill="url(#land-glow)" />
-        <path
-          d="M400 900C650 620 725 585 916 386S1280 276 1600 508V900Z"
-          fill="#8CBBDD"
-          fillOpacity=".45"
-        />
-        <path
-          d="M-100 900C440 710 769 206 1030 446S1400 650 1710 262V900Z"
-          fill="url(#land-hill)"
-        />
-        <path
-          d="M400 900C710 622 967 406 1180 581S1510 728 1700 536V900Z"
-          fill="#17649E"
-        />
-        <path
-          d="M-100 900C276 647 532 573 782 717S1307 845 1670 680V940Z"
-          fill="#104B80"
-        />
-        <g stroke="#B7D9F2" strokeOpacity=".18" strokeWidth="1.5">
-          <path d="M678 901C898 579 1101 518 1294 673S1510 728 1650 629" />
-          <path d="M630 901C882 558 1094 490 1302 646S1505 700 1650 601" />
-          <path d="M576 901C868 538 1086 462 1310 619S1500 672 1650 573" />
-          <path d="M524 901C852 518 1078 434 1318 592S1495 644 1650 545" />
-          <path d="M470 901C836 498 1070 406 1326 565S1490 616 1650 517" />
-        </g>
-        <g stroke="#D3EAFE" strokeOpacity=".4" strokeWidth="1.5">
-          <path d="m1000 470 156 126 170-142 158 131" />
-          <path d="m1156 596 57 172 271-183" />
-        </g>
-        <g fill="#EAF5FF">
-          <circle cx="1000" cy="470" r="5" />
-          <circle cx="1156" cy="596" r="6" />
-          <circle cx="1326" cy="454" r="5" />
-          <circle cx="1484" cy="585" r="5" />
-          <circle cx="1213" cy="768" r="4" />
-        </g>
-        <g stroke="#D3EAFE" strokeOpacity=".35">
-          <circle cx="1156" cy="596" r="19" />
-          <circle cx="1326" cy="454" r="17" />
-        </g>
-        <path d="M0 0h1600v900H0z" fill="url(#land-shade)" />
-      </svg>
-      <span className="landscape-caption">
-        Local understanding. Connected possibilities.
-      </span>
+    <div className="hero-landscape hero-particle-drift" aria-hidden="true">
+      <canvas ref={canvasRef} />
     </div>
   );
 }

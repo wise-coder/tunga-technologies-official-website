@@ -53,6 +53,36 @@ export function SlideText({ children }: { children: ReactNode }) {
   );
 }
 
+export function ArrowSlideContent({
+  children,
+  arrow,
+  direction = "right",
+}: {
+  children: ReactNode;
+  arrow: ReactNode;
+  direction?: "right" | "up-right";
+}) {
+  return (
+    <span className={`button-text-swap button-text-swap-${direction}`}>
+      <span className="button-text-swap-label">
+        {typeof children === "string"
+          ? Array.from(children).map((character, index) => (
+              <span
+                className="button-text-swap-character"
+                key={`${character}-${index}`}
+                style={{ "--character-index": index } as React.CSSProperties}
+              >
+                <span>{character === " " ? "\u00a0" : character}</span>
+                <span aria-hidden="true">{character === " " ? "\u00a0" : character}</span>
+              </span>
+            ))
+          : children}
+      </span>
+      {arrow}
+    </span>
+  );
+}
+
 export function Button({
   children,
   href,
@@ -67,14 +97,18 @@ export function Button({
   className?: string;
 }) {
   const contents = (
-    <>
-      <SlideText>{children}</SlideText>
-      {external ? (
-        <ArrowUpRight size={18} aria-hidden="true" />
-      ) : (
-        <ArrowRight size={18} aria-hidden="true" />
-      )}
-    </>
+    <ArrowSlideContent
+      arrow={
+        external ? (
+          <ArrowUpRight size={18} aria-hidden="true" />
+        ) : (
+          <ArrowRight size={18} aria-hidden="true" />
+        )
+      }
+      direction={external ? "up-right" : "right"}
+    >
+      {children}
+    </ArrowSlideContent>
   );
   return external ? (
     <a

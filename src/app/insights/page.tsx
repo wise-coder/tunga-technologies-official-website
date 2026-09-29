@@ -1,4 +1,6 @@
 import { InsightCard } from "@/components/sections";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { Button, Container, EmptyState, Hero } from "@/components/ui";
 import { publishedInsights } from "@/content/insights";
 import { pageMetadata } from "@/lib/metadata";
@@ -36,11 +38,21 @@ export default function InsightsPage() {
           ) : (
             <EmptyState
               title="Our next chapter is taking shape."
-              description="We’re preparing stories from our products and the lessons behind them. In the meantime, explore e-tungo to see our approach in practice."
+              description="We’re preparing stories from our products and the lessons behind them. Check back soon for the first field notes and product updates."
             >
-              <Button href="/solutions/e-tungo">Discover e-tungo</Button>
+              <Button href="/about">Get to know Tunga</Button>
             </EmptyState>
           )}
+          <aside className="insights-etungo-promo" aria-label="e-tungo update">
+            <div>
+              <span>PRODUCT UPDATE · LIVE</span>
+              <h2>Meet e-tungo.</h2>
+              <p>Connecting Rwanda’s livestock marketplace.</p>
+            </div>
+            <Link href="/solutions/e-tungo">
+              Discover e-tungo <ArrowUpRight size={17} aria-hidden="true" />
+            </Link>
+          </aside>
         </Container>
       </section>
     </>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useLayoutEffect, useMemo, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -173,7 +173,7 @@ export function FoldText({
     });
   }, [lines, splitBy, hinge, hingeConfig.origin, safeCrease, safePerspective]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (typeof window === "undefined") return undefined;
 
     const root = rootRef.current;
@@ -251,16 +251,7 @@ export function FoldText({
       play(false);
     }
 
-    // Support hover replay
-    const replayOnHover = () => {
-      if (trigger !== "hover" && !reduceMotion) {
-        play(false);
-      }
-    };
-    root.addEventListener("mouseenter", replayOnHover);
-
     return () => {
-      root.removeEventListener("mouseenter", replayOnHover);
       if (hoverHandler) root.removeEventListener("mouseenter", hoverHandler);
       scrollTrigger?.kill();
       killTimeline();

@@ -14,6 +14,9 @@ export const metadata: Metadata = {
   },
   description: site.description,
   robots: { index: indexable, follow: true },
+  icons: {
+    icon: [{ url: "/favicon.png", type: "image/png", sizes: "512x512" }],
+  },
 };
 
 export default function RootLayout({

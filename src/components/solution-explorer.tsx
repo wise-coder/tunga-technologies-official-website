@@ -1,14 +1,10 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
 import {
   ArrowUpRight,
   Check,
-  ImagePlus,
-  MapPin,
-  MessageCircle,
-  RefreshCw,
-  Search,
   Sprout,
 } from "lucide-react";
 import { etungo, productSteps } from "@/content/solutions";
@@ -22,8 +18,6 @@ const features = [
       "A clear price and location",
       "A simple way to start a conversation",
     ],
-    icon: ImagePlus,
-    label: "Share your listing",
   },
   {
     title: "Discover what’s available around you.",
@@ -32,8 +26,6 @@ const features = [
       "Useful information in one place",
       "Connections across Rwanda",
     ],
-    icon: Search,
-    label: "Find what you need",
   },
   {
     title: "From discovery to a direct conversation.",
@@ -42,8 +34,6 @@ const features = [
       "Connect through WhatsApp",
       "Discuss the details directly",
     ],
-    icon: MessageCircle,
-    label: "Make the connection",
   },
   {
     title: "A better marketplace starts with listening.",
@@ -52,8 +42,6 @@ const features = [
       "Listen to community feedback",
       "Improve around real needs",
     ],
-    icon: RefreshCw,
-    label: "Learn and improve",
   },
 ];
 
@@ -61,7 +49,6 @@ export function SolutionExplorer() {
   const [selected, setSelected] = useState(0);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const feature = features[selected];
-  const Icon = feature.icon;
   function onKeyDown(event: React.KeyboardEvent, index: number) {
     const next =
       event.key === "ArrowRight"
@@ -158,29 +145,16 @@ export function SolutionExplorer() {
           </a>
         </div>
         <div className="explorer-art">
-          <div className="explorer-orbit" aria-hidden="true" />
-          <div className="explorer-window">
-            <div className="explorer-window-bar">
-              <span />
-              <span />
-              <span />
-              <strong>e-tungo</strong>
-            </div>
-            <div className="explorer-window-content">
-              <div className="explorer-feature-icon">
-                <Icon size={47} strokeWidth={1.25} aria-hidden="true" />
-              </div>
-              <strong>{feature.label}</strong>
-              <span>Animals. Animal products. Opportunity.</span>
-              <div className="explorer-location">
-                <MapPin size={15} aria-hidden="true" />
-                Built for Rwanda
-              </div>
-            </div>
+          <div className="explorer-site-preview">
+            <Image
+              src="/e-tungo image.png"
+              alt="e-tungo marketplace with animal and animal product listings"
+              width={1448}
+              height={1086}
+              sizes="(max-width: 767px) calc(100vw - 72px), 410px"
+              priority
+            />
           </div>
-          <span className="explorer-art-caption">
-            Product concept illustration
-          </span>
         </div>
       </div>
       <p className="explorer-attribution">

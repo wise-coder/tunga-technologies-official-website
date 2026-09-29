@@ -1,28 +1,44 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight, Mail } from "lucide-react";
 import { navigation, site } from "@/content/site";
-import { etungo } from "@/content/solutions";
-import { Container } from "./ui";
-import { Wordmark } from "./brand";
+import { ArrowSlideContent, Container } from "./ui";
+import { TechText } from "./tech-text";
 
 export function Footer() {
   return (
     <footer className="site-footer">
       <Container>
-        <div className="footer-main">
-          <div className="footer-brand">
-            <Wordmark />
+        <div className="footer-reference-grid">
+          <div className="footer-contact">
+            {site.socials.length > 0 && (
+              <nav aria-label="Tunga social links" className="footer-socials">
+                {site.socials.map((social) => (
+                  <a
+                    href={social.href}
+                    key={social.label}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                  >
+                    {social.label.slice(0, 1)}
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </a>
+                ))}
+              </nav>
+            )}
             <p>
-              Technology built for
+              Kigali, Rwanda
               <br />
-              Rwanda’s progress.
+              Rooted locally. Building forward.
             </p>
-            <span className="footer-location">
-              <span />
-              Rooted in Rwanda. Building forward.
-            </span>
+            {site.email && (
+              <a className="footer-email" href={`mailto:${site.email}`}>
+                <Mail size={16} aria-hidden="true" />
+                {site.email}
+              </a>
+            )}
           </div>
-          <div>
+          <div className="footer-links-group">
             <h2>Explore</h2>
             <nav aria-label="Footer explore">
               {navigation.slice(0, 4).map((item) => (
@@ -32,53 +48,42 @@ export function Footer() {
               ))}
             </nav>
           </div>
-          <div>
+          <div className="footer-links-group">
             <h2>Work with us</h2>
             <nav aria-label="Footer work with us">
-              <Link href="/partners">Partner With Us</Link>
+              <Link href="/partners">Partner with us</Link>
               <Link href="/contact">Contact</Link>
-              {site.socials.map((social) => (
-                <a
-                  href={social.href}
-                  key={social.label}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {social.label}
-                  <ArrowUpRight size={14} aria-hidden="true" />
-                  <span className="sr-only"> (opens in a new tab)</span>
-                </a>
-              ))}
+              <Link href="/solutions">Our solutions</Link>
             </nav>
           </div>
-          <div>
-            <h2>Our products</h2>
-            <a
-              className="footer-product"
-              href={etungo.url}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              e-tungo
-              <ArrowUpRight size={18} aria-hidden="true" />
-              <span className="sr-only"> (opens in a new tab)</span>
-            </a>
-            <p className="footer-product-note">
-              A product of
-              <br />
-              Tunga Technologies.
-            </p>
+          <div className="footer-links-group">
+            <h2>Company</h2>
+            <nav aria-label="Footer company">
+              <Link href="/about">About</Link>
+              <Link href="/impact">Impact</Link>
+              <Link href="/insights">Insights</Link>
+            </nav>
           </div>
         </div>
-        <div className="footer-bottom">
-          <p>© {new Date().getFullYear()} Tunga Technologies.</p>
-          <span>Practical technology. Meaningful progress.</span>
+        <div className="footer-reference-bottom">
+          <p>Technology built for Rwanda’s progress.</p>
+          <Link href="/partners" className="footer-start-link">
+            <ArrowSlideContent arrow={<ArrowRight size={17} aria-hidden="true" />}>
+              Get started
+            </ArrowSlideContent>
+          </Link>
           <nav aria-label="Legal">
-            <Link href="/privacy">Privacy</Link>
-            <Link href="/terms">Terms</Link>
+            <Link href="/terms">Terms &amp; conditions</Link>
+            <Link href="/privacy">Privacy policy</Link>
           </nav>
         </div>
       </Container>
+      <TechText
+        text="Tunga Techz"
+        className="footer-display-name"
+        color="#e3f0ff"
+        accentColor="#87bafa"
+      />
     </footer>
   );
 }
