@@ -14,9 +14,27 @@ export const impactMetrics: Metric[] = [
     note: "e-tungo · Livestock marketplace",
     period: "September 2026",
   },
-  { label: "Users reached", value: "02" },
-  { label: "Districts represented", value: "03" },
-  { label: "Marketplace connections", value: "04" },
+  {
+    label: "Users reached",
+    value: "50",
+    source: "Tunga Technologies confirmation",
+    period: "29 September 2026",
+    note: "Verified data",
+  },
+  {
+    label: "Districts represented",
+    value: "5",
+    source: "Tunga Technologies confirmation",
+    period: "29 September 2026",
+    note: "Verified data",
+  },
+  {
+    label: "Marketplace connections",
+    value: "4",
+    source: "Tunga Technologies confirmation",
+    period: "29 September 2026",
+    note: "Verified data",
+  },
   { label: "Organizations participating", value: "05" },
 ];
 
