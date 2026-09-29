@@ -4,6 +4,7 @@ import { Footer } from "@/components/footer";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { site, indexable } from "@/content/site";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 import "./theme.css";
 

@@ -88,7 +88,11 @@ export function Header() {
             Our solutions
           </Link>
           <Link className="header-cta" href="/partners">
-            <ArrowSlideContent arrow={<ArrowUpRight size={17} aria-hidden="true" />} direction="up-right">
+            <ArrowSlideContent
+              arrow={<ArrowUpRight size={17} aria-hidden="true" />}
+              direction="up-right"
+              animation="content-slide"
+            >
               Partner With Us
             </ArrowSlideContent>
           </Link>
@@ -153,7 +157,11 @@ export function Header() {
             onClick={close}
             className="button button-primary"
           >
-            <ArrowSlideContent arrow={<ArrowUpRight size={18} aria-hidden="true" />} direction="up-right">
+            <ArrowSlideContent
+              arrow={<ArrowUpRight size={18} aria-hidden="true" />}
+              direction="up-right"
+              animation="content-slide"
+            >
               Partner With Us
             </ArrowSlideContent>
           </Link>

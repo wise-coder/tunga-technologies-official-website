@@ -51,7 +51,7 @@ export function TechText({
     let glyphs: Glyph[] = [];
     let font = "";
     let baseline = 0;
-    let animationStart = performance.now();
+    const animationStart = performance.now();
 
     const layout = () => {
       const styles = window.getComputedStyle(container);

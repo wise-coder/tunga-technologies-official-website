@@ -57,11 +57,37 @@ export function ArrowSlideContent({
   children,
   arrow,
   direction = "right",
+  animation = "letters",
 }: {
   children: ReactNode;
   arrow: ReactNode;
   direction?: "right" | "up-right";
+  animation?: "letters" | "content-slide" | "none";
 }) {
+  if (animation === "none") {
+    return (
+      <span className="button-content-static">
+        {children}
+        {arrow}
+      </span>
+    );
+  }
+
+  if (animation === "content-slide") {
+    return (
+      <span className={`button-content-slide button-content-slide-${direction}`}>
+        <span>
+          {children}
+          {arrow}
+        </span>
+        <span aria-hidden="true">
+          {children}
+          {arrow}
+        </span>
+      </span>
+    );
+  }
+
   return (
     <span className={`button-text-swap button-text-swap-${direction}`}>
       <span className="button-text-swap-label">

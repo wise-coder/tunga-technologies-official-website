@@ -68,7 +68,7 @@ export function Footer() {
         <div className="footer-reference-bottom">
           <p>Technology built for Rwanda’s progress.</p>
           <Link href="/partners" className="footer-start-link">
-            <ArrowSlideContent arrow={<ArrowRight size={17} aria-hidden="true" />}>
+            <ArrowSlideContent arrow={<ArrowRight size={17} aria-hidden="true" />} animation="none">
               Get started
             </ArrowSlideContent>
           </Link>

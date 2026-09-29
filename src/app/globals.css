@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @import "@fontsource-variable/inter";
-@import "lenis/dist/lenis.css";
 
 @theme inline {
   --color-blue: #196ecc;
