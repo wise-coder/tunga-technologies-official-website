@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Header } from "@/components/header";
+import { PageLoader } from "@/components/page-loader";
 import { Footer } from "@/components/footer";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { SmoothScroll } from "@/components/smooth-scroll";
@@ -36,8 +37,13 @@ export default function RootLayout({
       : {}),
   };
   return (
-    <html lang="en">
+    <html lang="en" className="is-page-loading">
       <body>
+        <PageLoader />
+        {/* Without JavaScript nothing would lift the loading screen. */}
+        <noscript>
+          <style>{`.page-loader { display: none !important; }`}</style>
+        </noscript>
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>

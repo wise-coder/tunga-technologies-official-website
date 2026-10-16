@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState, useMemo } from "react";
+import { whenPageVisible } from "./page-loader";
 
 export type SplitTextProps = {
   text?: string;
@@ -80,12 +81,14 @@ export function SplitText({
     );
 
     const rect = node.getBoundingClientRect();
-    const isAboveOrInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+    const isAboveOrInViewport =
+      rect.top < window.innerHeight && rect.bottom > 0;
 
     if (isAboveOrInViewport) {
-      const timer = setTimeout(() => setInView(true), 0);
+      // Start once the loading screen lifts, so the animation is seen.
+      const cancel = whenPageVisible(() => setInView(true));
       return () => {
-        clearTimeout(timer);
+        cancel();
         observer.disconnect();
       };
     } else {
@@ -135,7 +138,11 @@ export function SplitText({
             <React.Fragment key={wordKey}>
               <span
                 className={`split-word split-char ${
-                  isAnimated ? "split-char-in" : isHiddenBeforeReveal ? "split-char-from" : ""
+                  isAnimated
+                    ? "split-char-in"
+                    : isHiddenBeforeReveal
+                      ? "split-char-from"
+                      : ""
                 }`}
                 style={
                   {
@@ -163,7 +170,11 @@ export function SplitText({
                   <span
                     key={`${wordKey}-char-${charIdx}`}
                     className={`split-char ${
-                      isAnimated ? "split-char-in" : isHiddenBeforeReveal ? "split-char-from" : ""
+                      isAnimated
+                        ? "split-char-in"
+                        : isHiddenBeforeReveal
+                          ? "split-char-from"
+                          : ""
                     }`}
                     style={
                       {

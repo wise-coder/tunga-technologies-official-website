@@ -298,6 +298,16 @@ h3 {
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
+/* Over white sections the pale pill takes a deeper tint so it stays visible. */
+.is-scrolled.is-over-light .header-bar::before {
+  border-color: rgba(18, 23, 34, 0.08);
+  background: rgba(222, 229, 238, 0.86);
+  box-shadow:
+    0 8px 40px rgba(7, 55, 104, 0.16),
+    0 2px 12px rgba(7, 55, 104, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
 /* Child elements glide smoothly during color/size changes */
 .header-bar .wordmark,
 .header-bar .desktop-nav a,
@@ -2588,7 +2598,110 @@ div.blur-text-wrap {
   }
 }
 
+/* Mobile fine-tuning: compact buttons sized to their label, roomier card
+   grids and tighter vertical rhythm on phones. */
+@media (max-width: 767px) {
+  .button {
+    min-height: 48px;
+    padding: 12px 18px;
+    gap: 10px;
+    font-size: 13.5px;
+  }
+  .button-text-swap,
+  .button-content-static {
+    gap: 0.55em;
+  }
+  .centered-actions {
+    gap: 10px;
+  }
+  .centered-actions > .button {
+    padding-inline: 16px;
+    font-size: 13.5px;
+  }
+  .button-row {
+    gap: 10px;
+  }
+  /* Form submit buttons stay full width: an easy tap target at the end of a form. */
+  .form-submit {
+    width: 100%;
+  }
+  .section {
+    padding-block: 64px;
+  }
+  .section-header {
+    margin-bottom: 32px;
+  }
+  .page-hero-grid {
+    padding-bottom: 48px;
+  }
+}
 
+@media (max-width: 600px) {
+  .response-grid,
+  .criteria-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .criteria-card {
+    padding-top: 20px;
+  }
+  .criteria-card > span {
+    margin-bottom: 12px;
+  }
+  .solution-card .button-row {
+    align-items: center;
+  }
+}
 
-
-
+/* Loading screen: the home hero's cobalt with the logo breathing in and out
+   of a blur while the page's fonts and images load. */
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, #0634c2 0%, #0a5ce6 100%);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 0.55s;
+}
+.page-loader.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition:
+    opacity 0.3s ease-out,
+    visibility 0s;
+}
+.page-loader-logo {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .page-loader.is-active .page-loader-logo {
+    animation: loader-breathe 1.6s ease-in-out infinite alternate;
+  }
+}
+@keyframes loader-breathe {
+  from {
+    opacity: 0.15;
+    filter: blur(10px);
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+@media (max-width: 767px) {
+  .page-loader-logo {
+    width: 76px;
+    height: 76px;
+  }
+}

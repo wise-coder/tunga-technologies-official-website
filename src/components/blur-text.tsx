@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState, useMemo } from "react";
+import { whenPageVisible } from "./page-loader";
 
 export type BlurTextProps = {
   text?: string;
@@ -82,12 +83,14 @@ export function BlurText({
     );
 
     const rect = node.getBoundingClientRect();
-    const isAboveOrInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+    const isAboveOrInViewport =
+      rect.top < window.innerHeight && rect.bottom > 0;
 
     if (isAboveOrInViewport) {
-      const initTimer = setTimeout(() => setInView(true), 0);
+      // Start once the loading screen lifts, so the animation is seen.
+      const cancel = whenPageVisible(() => setInView(true));
       return () => {
-        clearTimeout(initTimer);
+        cancel();
         observer.disconnect();
       };
     } else {
@@ -122,7 +125,14 @@ export function BlurText({
     const totalTimeMs = delay + segments.length * stepDuration + duration;
     const timer = setTimeout(onAnimationComplete, totalTimeMs);
     return () => clearTimeout(timer);
-  }, [inView, onAnimationComplete, segments.length, delay, stepDuration, duration]);
+  }, [
+    inView,
+    onAnimationComplete,
+    segments.length,
+    delay,
+    stepDuration,
+    duration,
+  ]);
 
   if (!content && children) {
     return (
@@ -148,7 +158,11 @@ export function BlurText({
           <React.Fragment key={index}>
             <span
               className={`blur-text-word ${
-                isAnimated ? "blur-text-in" : isHiddenBeforeReveal ? "blur-text-from" : ""
+                isAnimated
+                  ? "blur-text-in"
+                  : isHiddenBeforeReveal
+                    ? "blur-text-from"
+                    : ""
               }`}
               style={
                 {
