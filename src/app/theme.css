@@ -290,8 +290,8 @@ h3 {
   border-radius: 999px;
   border: 1px solid rgba(200, 215, 232, 0.45);
   background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(28px) saturate(180%);
   -webkit-backdrop-filter: blur(28px) saturate(180%);
+  backdrop-filter: blur(28px) saturate(180%);
   box-shadow:
     0 8px 40px rgba(7, 55, 104, 0.11),
     0 2px 12px rgba(7, 55, 104, 0.06),
@@ -1112,10 +1112,20 @@ h3 {
   height: 25px;
   border-radius: 50%;
 }
-.faq-list details[open] summary svg {
+.faq-list summary {
+  cursor: pointer;
+}
+.faq-list summary svg {
+  flex: none;
+  transition: transform 340ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.faq-list details[open]:not(.is-closing) summary svg {
   transform: rotate(45deg);
 }
-.faq-list details > p {
+.faq-answer {
+  overflow: hidden;
+}
+.faq-answer > p {
   color: #65728b;
   font-size: 15px;
   line-height: 1.9;
@@ -1922,7 +1932,7 @@ h3 {
     gap: 17px;
     line-height: 1.8;
   }
-  .faq-list details > p {
+  .faq-answer > p {
     font-size: 14px;
     padding-right: 0;
   }

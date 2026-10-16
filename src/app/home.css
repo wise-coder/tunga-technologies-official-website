@@ -1,0 +1,524 @@
+/* Home page: the original Tunga structure and interactions, dressed in the
+   Supaste reference look (inspomcp.dev/screens/supaste-com): a cobalt gradient
+   hero with a floating window, soft grey panels and a black footer.
+   Every rule is scoped to .home-v2 or .header-home so other pages are untouched. */
+
+.home-v2 {
+  --hp-ink: #0b0b0f;
+  --hp-text: #5b6170;
+  --hp-panel: #f5f6f8;
+  --hp-serif:
+    ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  background: white;
+}
+.home-v2 .hp-container {
+  width: min(100% - 48px, 1100px);
+}
+
+/* Header: at the top it is a plain black notch attached to the page edge.
+   On scroll it detaches into a floating "liquid glass" pill, frosted bright
+   with dark text and logo so it stays readable over light content. */
+html body .site-header.header-home .header-inner {
+  width: min(100% - 48px, 1100px);
+}
+html body .site-header.header-home .header-bar::before {
+  inset: 0 max(12px, calc(50% - 574px));
+  border: 0;
+  border-radius: 0 0 24px 24px;
+  background: #000;
+  box-shadow: none;
+}
+html body .site-header.header-home.is-scrolled .header-bar::before {
+  inset: 8px max(12px, calc(50% - 574px));
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.55) 0%,
+      rgba(255, 255, 255, 0.2) 45%,
+      rgba(255, 255, 255, 0.4) 100%
+    ),
+    rgba(240, 245, 252, 0.55);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  backdrop-filter: blur(22px) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 0 20px rgba(255, 255, 255, 0.25),
+    0 12px 36px rgba(6, 30, 70, 0.14);
+}
+html body .site-header.header-home:not(.is-scrolled) .wordmark-logo-light {
+  opacity: 0;
+}
+html body .site-header.header-home:not(.is-scrolled) .wordmark-logo-dark {
+  opacity: 1;
+}
+html body .site-header.header-home.is-scrolled .wordmark-logo-light {
+  opacity: 1;
+}
+html body .site-header.header-home.is-scrolled .wordmark-logo-dark {
+  opacity: 0;
+}
+html body .site-header.header-home .wordmark,
+html body .site-header.header-home .desktop-nav a {
+  color: #f2f4f7;
+}
+html body .site-header.header-home .desktop-nav a:hover {
+  color: #9fd2ff;
+}
+html body .site-header.header-home.is-scrolled .wordmark,
+html body .site-header.header-home.is-scrolled .desktop-nav a {
+  color: #121722;
+}
+html body .site-header.header-home.is-scrolled .desktop-nav a:hover {
+  color: var(--blue);
+}
+html body .site-header.header-home .header-secondary {
+  min-height: 40px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: #ffffff1a;
+  color: white;
+}
+html body .site-header.header-home.is-scrolled .header-secondary {
+  border-color: rgba(18, 23, 34, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.55);
+  color: #121722;
+}
+html body .site-header.header-home .header-cta {
+  min-height: 40px;
+  border-radius: 999px;
+  background: white;
+  background-image: none;
+  color: var(--hp-ink, #0b0b0f);
+}
+html body .site-header.header-home.is-scrolled .header-cta {
+  background: #0b0b0f;
+  color: white;
+  box-shadow: 0 4px 14px rgba(2, 24, 80, 0.18);
+}
+html body .site-header.header-home .header-cta::after {
+  background: linear-gradient(115deg, #096bd7, #034ea2);
+}
+html body .site-header.header-home .header-cta:hover {
+  color: white;
+}
+html body .site-header.header-home .menu-toggle {
+  color: white;
+  border-color: #ffffff40;
+  background: transparent;
+}
+html body .site-header.header-home.is-scrolled .menu-toggle {
+  color: #121722;
+  border-color: rgba(18, 23, 34, 0.12);
+  background: rgba(255, 255, 255, 0.5);
+}
+html body .site-header.header-home .mobile-menu .menu-toggle {
+  color: var(--blue);
+  border-color: var(--line);
+  background: white;
+}
+html body .site-header.header-home :focus-visible {
+  outline-color: #9fd2ff;
+}
+html body .site-header.header-home.is-scrolled :focus-visible {
+  outline-color: var(--blue);
+}
+
+/* Rounded pill buttons. Variants, hover fills and letter animations are the
+   shared ones from theme.css; only the shape changes here. */
+.home-v2 .button {
+  border-radius: 999px;
+}
+
+/* Hero */
+.hp-hero {
+  position: relative;
+  margin-top: -80px;
+  padding-top: 168px;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    #0634c2 0px,
+    #0a5ce6 640px,
+    #3d98f7 860px,
+    #8ad8fc 1060px,
+    #d8f1ff 1240px,
+    #ffffff 100%
+  );
+  color: white;
+}
+.home-v2 .home-hero-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+}
+.home-v2 .hp-hero h1 {
+  margin: 0 auto;
+  color: white;
+  font-size: clamp(44px, 7.4vw, 100px);
+  line-height: 0.98;
+}
+.hp-hero-sans {
+  display: block;
+  text-wrap: balance;
+  font-weight: 700;
+  letter-spacing: -0.055em;
+}
+/* The headline words rise out of a blur and sharpen in sequence. Hidden until
+   the BlurText component takes over, so the server-rendered words never flash. */
+@media (prefers-reduced-motion: no-preference) {
+  .hp-hero h1 .blur-text-word:not(.blur-text-in) {
+    opacity: 0;
+    filter: blur(14px);
+    transform: translateY(28px);
+  }
+}
+.hp-hero-serif {
+  display: block;
+  font-family: var(--hp-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+}
+.home-v2 .home-hero-copy > p {
+  max-width: 600px;
+  margin: 28px auto 0;
+  color: #f2f7ff;
+  font-size: 19px;
+  line-height: 1.55;
+}
+.home-v2 .hp-hero .button-row {
+  justify-content: center;
+  gap: 14px;
+  margin-top: 36px;
+}
+.home-v2 .hp-hero .button {
+  min-height: 56px;
+  padding: 16px 26px;
+  font-size: 14px;
+}
+.home-v2 .hp-hero .button-secondary {
+  border: 1px solid #ffffff70;
+  background: #ffffff1a;
+  color: white;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+.home-v2 .hp-hero .button-secondary:hover {
+  background: #ffffff2e;
+}
+.home-v2 .hp-hero :focus-visible {
+  outline-color: #b2d7ff;
+}
+.home-v2 .hero-rooted {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 28px;
+  color: white;
+  font-size: 13px;
+}
+
+/* Hero stage: a frosted frame and browser window floating over Rwanda's hills. */
+.hp-stage {
+  position: relative;
+  margin-top: 64px;
+  padding-bottom: 200px;
+}
+.hp-stage-land {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 640px;
+  object-fit: cover;
+  object-position: center 75%;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 32%,
+    black 72%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 32%,
+    black 72%,
+    transparent 100%
+  );
+}
+.hp-glass {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(100% - 32px, 1000px);
+  height: 420px;
+  transform: translateX(-50%);
+  border: 1px solid #ffffff80;
+  border-bottom: 0;
+  border-radius: 34px 34px 0 0;
+  background: linear-gradient(180deg, #ffffff40, #ffffff10);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+.hp-window {
+  position: relative;
+  z-index: 1;
+  width: min(100% - 48px, 760px);
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 22px;
+  background: #0b0b0f;
+  box-shadow:
+    0 40px 80px -20px rgba(3, 30, 80, 0.45),
+    0 0 0 1px #ffffff1a;
+}
+.hp-window-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  color: #c9ced8;
+  font-size: 12px;
+}
+.hp-window-dots {
+  display: flex;
+  gap: 6px;
+}
+.hp-window-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #3a3d45;
+}
+.hp-window-address {
+  display: inline-flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 0;
+  padding: 6px 12px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #1c1e24;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.hp-window-status {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: white;
+  color: var(--hp-ink);
+  font-weight: 600;
+}
+.hp-window-shot {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9.5;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+/* Audience panel keeps its original links and arrows, floating over the hills. */
+.home-v2 .audience-wrap {
+  margin-top: -110px;
+}
+.home-v2 .audience-panel {
+  border-radius: 28px;
+  box-shadow: 0 24px 60px -24px rgba(6, 40, 100, 0.35);
+}
+
+/* Bolder, Supaste-style section headings. */
+.home-v2 .centered-section .section-header h2 {
+  color: var(--hp-ink);
+  font-size: clamp(34px, 4.4vw, 54px);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -0.045em;
+}
+.home-v2 .centered-section .section-description {
+  color: var(--hp-text);
+}
+
+/* Keep the scroll fade-up, but leave unrevealed sections focusable and
+   clickable (opacity only, not visibility) so keyboard users can reach them. */
+.home-v2 .reveal-on-scroll {
+  visibility: visible;
+}
+
+/* Sections between panels stay white so no background band shows a hard edge. */
+.home-v2 .introduction-section,
+.home-v2 .cta-section {
+  background: white;
+}
+
+/* The closing banner lines up with the panels above it. */
+.home-v2 .cta-inner {
+  max-width: 1100px;
+  border-radius: 28px;
+}
+
+/* Grey rounded panels for the product, process and transformation chapters. */
+.home-v2 .hp-panel-section {
+  padding-block: 8px;
+  background: white;
+}
+.home-v2 .hp-panel {
+  padding: 64px 40px 40px;
+  border-radius: 28px;
+  background: var(--hp-panel);
+  box-shadow:
+    0 1px 0 #ffffff inset,
+    0 18px 40px -30px rgba(10, 30, 70, 0.25);
+}
+.home-v2 .hp-panel .section-medallion {
+  border-color: white;
+}
+.home-v2 .hp-panel .solution-explorer {
+  margin-top: 48px;
+  padding: 8px 32px 28px;
+  border-radius: 20px;
+  background: white;
+}
+.home-v2 .hp-panel .process-steps {
+  margin-top: 48px;
+  padding: 36px 28px;
+  border-radius: 20px;
+  background: white;
+}
+.home-v2 .hp-panel .transformation-panel {
+  max-width: none;
+  margin-top: 48px;
+  padding: 24px;
+  gap: 56px;
+  border-radius: 20px;
+  background: white;
+}
+.home-v2 .hp-panel .transformation-image {
+  border-radius: 14px;
+}
+.home-v2 .product-explorer-section {
+  padding-top: 24px;
+}
+.home-v2 .transformation-section {
+  padding-bottom: 96px;
+}
+
+/* Impact keeps its original component, as a rounded cobalt panel. */
+.home-v2 .home-impact {
+  width: min(100% - 48px, 1100px);
+  margin: 8px auto;
+  overflow: hidden;
+  border-radius: 28px;
+}
+.home-v2 .impact-section {
+  background: linear-gradient(160deg, #0634c2, #0a5ce6);
+}
+.home-v2 .impact-section .section-header h2 {
+  color: white;
+}
+
+/* Footer: black with a white notch, only on the home page. */
+body:has(.home-v2) .site-footer {
+  position: relative;
+  padding-top: 96px;
+  background: #000;
+}
+body:has(.home-v2) .site-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: max(12px, calc(50% - 574px));
+  right: max(12px, calc(50% - 574px));
+  height: 24px;
+  border-radius: 0 0 24px 24px;
+  background: white;
+}
+body:has(.home-v2) .site-footer .footer-reference-bottom {
+  border-color: #26272b;
+}
+body:has(.home-v2) .site-footer .footer-display-name {
+  opacity: 0.35;
+}
+
+@media (max-width: 1023px) {
+  .hp-glass {
+    height: 340px;
+  }
+}
+
+@media (max-width: 767px) {
+  .hp-hero {
+    padding-top: 136px;
+    background: linear-gradient(
+      180deg,
+      #0634c2 0px,
+      #0a5ce6 640px,
+      #5ab0f9 820px,
+      #c8ebff 960px,
+      #ffffff 1040px
+    );
+  }
+  .home-v2 .hp-hero h1 {
+    font-size: clamp(36px, 10.4vw, 56px);
+  }
+  .home-v2 .home-hero-copy > p {
+    font-size: 17px;
+  }
+  .home-v2 .hp-hero .button-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hp-stage {
+    margin-top: 48px;
+    padding-bottom: 140px;
+  }
+  .hp-stage-land {
+    height: 380px;
+  }
+  .hp-glass {
+    height: 220px;
+    border-radius: 22px 22px 0 0;
+  }
+  .hp-window {
+    width: calc(100% - 32px);
+    border-radius: 16px;
+  }
+  .hp-window-status {
+    display: none;
+  }
+  .home-v2 .audience-wrap {
+    margin-top: -70px;
+  }
+  .home-v2 .hp-panel {
+    padding: 44px 16px 16px;
+    border-radius: 22px;
+  }
+  .home-v2 .hp-panel .explorer-art {
+    min-height: 0;
+    padding: 0;
+  }
+  .home-v2 .hp-panel .solution-explorer,
+  .home-v2 .hp-panel .process-steps,
+  .home-v2 .hp-panel .transformation-panel {
+    margin-top: 32px;
+    padding: 16px;
+  }
+  .home-v2 .home-impact {
+    border-radius: 22px;
+  }
+  .home-v2 .cta-inner {
+    border-radius: 22px;
+  }
+}

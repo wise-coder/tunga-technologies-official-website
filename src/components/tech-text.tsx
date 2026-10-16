@@ -17,9 +17,13 @@ type Glyph = {
 
 const rgba = (hex: string, opacity: number) => {
   const value = hex.replace("#", "");
-  const normalized = value.length === 3
-    ? value.split("").map((part) => part + part).join("")
-    : value;
+  const normalized =
+    value.length === 3
+      ? value
+          .split("")
+          .map((part) => part + part)
+          .join("")
+      : value;
   const number = Number.parseInt(normalized.slice(0, 6), 16);
   const red = (number >> 16) & 255;
   const green = (number >> 8) & 255;
@@ -42,7 +46,6 @@ export function TechText({
     const context = canvas?.getContext("2d");
     if (!container || !canvas || !context) return undefined;
 
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const pointer = { x: -1000, y: -1000, active: false };
     let frame = 0;
     let width = 1;
@@ -51,7 +54,6 @@ export function TechText({
     let glyphs: Glyph[] = [];
     let font = "";
     let baseline = 0;
-    const animationStart = performance.now();
 
     const layout = () => {
       const styles = window.getComputedStyle(container);
@@ -60,8 +62,9 @@ export function TechText({
       const family = styles.fontFamily || "sans-serif";
       font = `${weight} ${size}px ${family}`;
       context.font = font;
-      (context as CanvasRenderingContext2D & { letterSpacing?: string }).letterSpacing =
-        styles.letterSpacing;
+      (
+        context as CanvasRenderingContext2D & { letterSpacing?: string }
+      ).letterSpacing = styles.letterSpacing;
       context.textBaseline = "alphabetic";
 
       const metrics = context.measureText(text);
@@ -89,9 +92,11 @@ export function TechText({
       canvas.style.height = `${height}px`;
       context.setTransform(dpr, 0, 0, dpr, 0, 0);
       layout();
+      if (!frame) frame = window.requestAnimationFrame(render);
     };
 
-    const render = (now: number) => {
+    // The glyph highlight only follows the visitor's pointer; it never runs on its own.
+    const render = () => {
       frame = 0;
       context.setTransform(dpr, 0, 0, dpr, 0, 0);
       context.clearRect(0, 0, width, height);
@@ -100,15 +105,18 @@ export function TechText({
       context.fillStyle = color;
       context.fillText(text, glyphs[0]?.x ?? width / 2, baseline);
 
-      const sweepX = reducedMotion ? -1000 : ((Math.sin((now - animationStart) / 1900) + 1) / 2) * width;
-      const focusX = pointer.active ? pointer.x : sweepX;
-      const focusedIndex = glyphs.findIndex(
-        (glyph) => focusX >= glyph.x - 8 && focusX <= glyph.x + glyph.width + 8,
-      );
+      const focusedIndex = pointer.active
+        ? glyphs.findIndex(
+            (glyph) =>
+              pointer.x >= glyph.x - 8 &&
+              pointer.x <= glyph.x + glyph.width + 8,
+          )
+        : -1;
       const glyph = glyphs[focusedIndex];
 
       if (glyph && glyph.char.trim()) {
-        const size = Number.parseFloat(window.getComputedStyle(container).fontSize) || 150;
+        const size =
+          Number.parseFloat(window.getComputedStyle(container).fontSize) || 150;
         const top = baseline - size * 0.78;
         const boxHeight = size * 0.98;
         const boxX = glyph.x - 7;
@@ -129,15 +137,23 @@ export function TechText({
         context.lineWidth = 1;
         context.strokeRect(boxX + 0.5, top + 0.5, boxWidth, boxHeight);
         context.fillStyle = accentColor;
-        for (const [x, y] of [[boxX, top], [boxX + boxWidth, top], [boxX, top + boxHeight], [boxX + boxWidth, top + boxHeight]]) {
+        for (const [x, y] of [
+          [boxX, top],
+          [boxX + boxWidth, top],
+          [boxX, top + boxHeight],
+          [boxX + boxWidth, top + boxHeight],
+        ]) {
           context.fillRect(x - 2, y - 2, 4, 4);
         }
-        context.font = "10px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
+        context.font =
+          "10px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
         context.fillStyle = rgba(accentColor, 0.9);
-        context.fillText(`${glyph.char}  ${Math.round(glyph.width)} px`, boxX, top - 8);
+        context.fillText(
+          `${glyph.char}  ${Math.round(glyph.width)} px`,
+          boxX,
+          top - 8,
+        );
       }
-
-      if (!reducedMotion || pointer.active) frame = window.requestAnimationFrame(render);
     };
 
     const updatePointer = (event: PointerEvent) => {
@@ -149,13 +165,15 @@ export function TechText({
     };
     const clearPointer = () => {
       pointer.active = false;
-      if (!reducedMotion && !frame) frame = window.requestAnimationFrame(render);
+      if (!frame) frame = window.requestAnimationFrame(render);
     };
 
     const observer = new ResizeObserver(resize);
     observer.observe(container);
     container.addEventListener("pointermove", updatePointer, { passive: true });
-    container.addEventListener("pointerenter", updatePointer, { passive: true });
+    container.addEventListener("pointerenter", updatePointer, {
+      passive: true,
+    });
     container.addEventListener("pointerleave", clearPointer);
     resize();
     frame = window.requestAnimationFrame(render);
@@ -170,7 +188,12 @@ export function TechText({
   }, [accentColor, color, text]);
 
   return (
-    <div ref={containerRef} className={`tech-text ${className}`.trim()} role="img" aria-label={text}>
+    <div
+      ref={containerRef}
+      className={`tech-text ${className}`.trim()}
+      role="img"
+      aria-label={text}
+    >
       <canvas ref={canvasRef} className="tech-text-canvas" aria-hidden="true" />
     </div>
   );
