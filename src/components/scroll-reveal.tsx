@@ -8,6 +8,8 @@ export function ScrollReveal() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    // Inner pages use their own block reveals, without stacking animations.
+    if (pathname !== "/") return;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;

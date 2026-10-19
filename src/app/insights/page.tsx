@@ -1,7 +1,7 @@
-import { InsightCard } from "@/components/sections";
+import { InsightCard } from "@/components/interior-sections";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { Button, Container, EmptyState, Hero } from "@/components/ui";
+import { Button, Container, EmptyState, Hero } from "@/components/interior-ui";
 import { publishedInsights } from "@/content/insights";
 import { pageMetadata } from "@/lib/metadata";
 

@@ -1,14 +1,14 @@
 import { MessageSquare } from "lucide-react";
 import { ContactForm } from "@/components/contact-form";
-import { PartnerCard } from "@/components/sections";
+import { PartnerCard } from "@/components/interior-sections";
 import {
   Container,
   Hero,
   SectionHeader,
   SectionKicker,
-  SplitText,
+  Heading,
   TextLink,
-} from "@/components/ui";
+} from "@/components/interior-ui";
 import { partnershipTypes } from "@/content/site";
 import { enquiryDeliveryReady } from "@/lib/form-config";
 import { pageMetadata } from "@/lib/metadata";
@@ -69,10 +69,9 @@ export default async function PartnersPage({
           <div className="form-layout">
             <div className="form-intro">
               <SectionKicker>Start a conversation</SectionKicker>
-              <SplitText
+              <Heading
                 tag="h2"
                 text="Tell us what problem you’re trying to solve."
-                delay={20}
               />
               <p>
                 Share a little about your organization, the people you serve and

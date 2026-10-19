@@ -75,7 +75,7 @@ export function ContactForm({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(enquiry),
-        signal: AbortSignal.timeout(15000),
+        signal: AbortSignal.timeout(65000),
       });
       const payload = await response.json();
       if (!response.ok) {
@@ -143,12 +143,15 @@ export function ContactForm({
         <button
           className="button button-secondary"
           type="button"
+          aria-label="Send another message"
           onClick={() => {
             setStatus("idle");
             setErrors({});
           }}
         >
-          <ArrowSlideContent arrow={<ArrowRight size={17} aria-hidden="true" />}>
+          <ArrowSlideContent
+            arrow={<ArrowRight size={17} aria-hidden="true" />}
+          >
             Send another message
           </ArrowSlideContent>
         </button>
@@ -164,6 +167,13 @@ export function ContactForm({
       aria-label={partnership ? "Partnership enquiry" : "Contact enquiry"}
       aria-busy={status === "loading"}
     >
+      <div className="contact-form-heading">
+        <p className="kicker">
+          {partnership ? "Let’s collaborate" : "Get in touch"}
+        </p>
+        <h3>{partnership ? "Start a conversation" : "Send us a message"}</h3>
+        <p>Share a few details and our team will get back to you by email.</p>
+      </div>
       {!available && (
         <p className="form-unavailable">
           Online enquiries are not available yet. This form will accept messages
@@ -227,9 +237,14 @@ export function ContactForm({
             }
             aria-invalid={Boolean(errors.message)}
             aria-describedby={
-              errors.message ? `${kind}-message-error` : undefined
+              errors.message
+                ? `${kind}-message-error ${kind}-message-help`
+                : `${kind}-message-help`
             }
           />
+          <p className="field-help" id={`${kind}-message-help`}>
+            20–5,000 characters. Include the details that will help us respond.
+          </p>
           {errorFor("message")}
         </div>
       </div>
@@ -254,6 +269,11 @@ export function ContactForm({
       <button
         type="submit"
         className="button button-primary form-submit"
+        aria-label={
+          status === "loading"
+            ? "Sending your message…"
+            : `Send ${partnership ? "enquiry" : "message"}`
+        }
         disabled={status === "loading"}
       >
         {status === "loading" ? (
@@ -263,7 +283,9 @@ export function ContactForm({
           </>
         ) : (
           <>
-            <ArrowSlideContent arrow={<ArrowRight size={18} aria-hidden="true" />}>
+            <ArrowSlideContent
+              arrow={<ArrowRight size={18} aria-hidden="true" />}
+            >
               {`Send ${partnership ? "enquiry" : "message"}`}
             </ArrowSlideContent>
           </>

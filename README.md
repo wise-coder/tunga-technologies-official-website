@@ -73,11 +73,13 @@ The homepage's full-width landscape and the blue hill illustration are original 
 
 ## Enquiry delivery
 
-Set server-only `CONTACT_WEBHOOK_URL` to your HTTPS receiver. `CONTACT_WEBHOOK_TOKEN`, if supplied, is sent as a Bearer authorization header. These variables are never sent to the browser.
+For direct email delivery with a Gmail app password, follow [the Vercel email setup guide](docs/EMAIL-SETUP.md). Set server-only `SMTP_USER`, `SMTP_APP_PASSWORD`, and optionally `CONTACT_TO_EMAIL` (defaults to the sender). `SMTP_HOST` defaults to `smtp.gmail.com` and `SMTP_PORT` to `465`; port `587` uses required STARTTLS. Messages include a formatted HTML layout, plain text, and the client's address as Reply-To.
+
+Alternatively, set server-only `CONTACT_WEBHOOK_URL` to your HTTPS receiver. `CONTACT_WEBHOOK_TOKEN`, if supplied, is sent as a Bearer authorization header. Valid SMTP configuration takes priority, without retrying failed SMTP sends through the webhook. These credentials are never sent to the browser.
 
 Both forms validate on the client and server. Requests enforce JSON content, a 20KB limit, field lengths, topic allowlists, consent, a honeypot and a same-origin check for browser requests. A per-instance rate limit allows five valid submission attempts per minute per forwarded IP. Add shared-store or gateway rate limiting for multi-instance deployment and ensure your proxy overwrites forwarded IP headers.
 
-Delivery is enabled only when the HTTPS receiver, `LEGAL_APPROVED=true`, `PRIVACY_CONTACT_EMAIL` and `ENQUIRY_RETENTION` are configured. The default state returns HTTP 503 and explicitly says the message was not sent or saved. This application does not keep a local database of enquiries or log their contents.
+Delivery is enabled only when SMTP or an HTTPS receiver, `LEGAL_APPROVED=true`, `PRIVACY_CONTACT_EMAIL` and `ENQUIRY_RETENTION` are configured. The default state returns HTTP 503 and explicitly says the message was not sent or saved. This application does not keep a local database of enquiries or log their contents. SMTP success means the mail provider accepted the message, not a guarantee of inbox placement.
 
 The receiver must accept and route this JSON to the correct recipient, and return 2xx only after accepting it:
 
@@ -125,4 +127,5 @@ The supplied Tunga logo is implemented as a scalable SVG adaptation of its frame
 ## Verification and delivery
 
 See `docs/DELIVERY.md` for the final validation record and `docs/FILES.md` for the complete file inventory. Browser traces and local design references are ignored by Git. The supplied DOCX is not included in the repository.
+
 # tunga-technologies-official-website

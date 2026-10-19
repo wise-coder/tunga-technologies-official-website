@@ -1,6 +1,11 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { Breadcrumbs, Container, Hero, TextLink } from "@/components/ui";
+import {
+  Breadcrumbs,
+  Container,
+  Hero,
+  TextLink,
+} from "@/components/interior-ui";
 import { publishedInsights } from "@/content/insights";
 import { pageMetadata } from "@/lib/metadata";
 

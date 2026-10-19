@@ -1527,6 +1527,28 @@ svg {
   grid-template-columns: 1fr 1fr;
   gap: 23px 20px;
 }
+.contact-form-heading {
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+.contact-form-heading h3 {
+  margin: 8px 0;
+  color: var(--navy);
+  font-size: clamp(23px, 3vw, 28px);
+  line-height: 1.25;
+}
+.contact-form-heading > p:last-child {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.field-help {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
 .field-wide {
   grid-column: 1 / -1;
 }

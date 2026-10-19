@@ -1,6 +1,13 @@
 import { Compass, Focus } from "lucide-react";
-import { BlurText, Container, Hero, SectionHeader, SectionKicker, SplitText } from "@/components/ui";
-import { CTASection, ProcessSteps } from "@/components/sections";
+import {
+  TextBlock,
+  Container,
+  Hero,
+  SectionHeader,
+  SectionKicker,
+  Heading,
+} from "@/components/interior-ui";
+import { CTASection, ProcessSteps } from "@/components/interior-sections";
 import { values } from "@/content/site";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -24,11 +31,10 @@ export default function AboutPage() {
           <div className="purpose-grid">
             <div>
               <SectionKicker>Our purpose</SectionKicker>
-              <SplitText
+              <Heading
                 tag="h2"
                 className="purpose-title"
                 text="Technology should solve something that matters."
-                delay={20}
               />
             </div>
             <p>
@@ -75,31 +81,15 @@ export default function AboutPage() {
           <div className="values-layout">
             <div>
               <SectionKicker>What we stand for</SectionKicker>
-              <SplitText
-                tag="h2"
-                text="Principles that show up in the work."
-                delay={20}
-              />
+              <Heading tag="h2" text="Principles that show up in the work." />
             </div>
             <ol className="values-list">
               {values.map((value, index) => (
                 <li key={value.title}>
                   <span>0{index + 1}</span>
                   <div>
-                    <BlurText
-                      as="h3"
-                      text={value.title}
-                      delay={index * 90}
-                      stepDuration={30}
-                      direction="bottom"
-                    />
-                    <BlurText
-                      as="p"
-                      text={value.description}
-                      delay={index * 90 + 45}
-                      stepDuration={22}
-                      direction="bottom"
-                    />
+                    <TextBlock as="h3" text={value.title} />
+                    <TextBlock as="p" text={value.description} />
                   </div>
                 </li>
               ))}

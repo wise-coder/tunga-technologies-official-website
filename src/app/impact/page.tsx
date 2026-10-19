@@ -1,5 +1,12 @@
-import { BlurText, Container, Hero, SectionHeader, SectionKicker, SplitText } from "@/components/ui";
-import { CTASection, ImpactMetric } from "@/components/sections";
+import {
+  TextBlock,
+  Container,
+  Hero,
+  SectionHeader,
+  SectionKicker,
+  Heading,
+} from "@/components/interior-ui";
+import { CTASection, ImpactMetric } from "@/components/interior-sections";
 import { impactFramework, impactMetrics } from "@/content/impact";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -41,27 +48,9 @@ export default function ImpactPage() {
             {impactFramework.map((item, index) => (
               <article className="framework-card" key={item.title}>
                 <span className="framework-number">0{index + 1}</span>
-                <BlurText
-                  as="h3"
-                  text={item.title}
-                  delay={index * 90}
-                  stepDuration={30}
-                  direction="bottom"
-                />
-                <BlurText
-                  as="p"
-                  text={item.description}
-                  delay={index * 90 + 45}
-                  stepDuration={22}
-                  direction="bottom"
-                />
-                <BlurText
-                  as="p"
-                  text={item.detail}
-                  delay={index * 90 + 90}
-                  stepDuration={22}
-                  direction="bottom"
-                />
+                <TextBlock as="h3" text={item.title} />
+                <TextBlock as="p" text={item.description} />
+                <TextBlock as="p" text={item.detail} />
               </article>
             ))}
           </div>
@@ -71,11 +60,7 @@ export default function ImpactPage() {
         <Container>
           <div className="evidence-note">
             <SectionKicker>A growing record of learning</SectionKicker>
-            <SplitText
-              tag="h2"
-              text="Every result needs a source."
-              delay={20}
-            />
+            <Heading tag="h2" text="Every result needs a source." />
             <p>
               Our evidence will bring together product activity, user feedback
               and verified outcomes. Case studies, pilot results and community

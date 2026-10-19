@@ -9,15 +9,15 @@ import {
   Upload,
 } from "lucide-react";
 import {
-  BlurText,
+  TextBlock,
   Breadcrumbs,
   Button,
   Container,
   SectionHeader,
   SectionKicker,
-  SplitText,
-} from "@/components/ui";
-import { CTASection, ProductVisual } from "@/components/sections";
+  Heading,
+} from "@/components/interior-ui";
+import { CTASection, ProductVisual } from "@/components/interior-sections";
 import { ImpactMetricsAnimated } from "@/components/impact-metrics-animated";
 import { etungo, productScreenshots, productSteps } from "@/content/solutions";
 import { pageMetadata } from "@/lib/metadata";
@@ -59,7 +59,7 @@ export default function EtungoPage() {
           <div className="product-hero-grid">
             <div>
               <SectionKicker>Tunga solution · Live</SectionKicker>
-              <SplitText tag="h1" text="e-tungo" delay={25} splitType="chars" />
+              <Heading tag="h1" text="e-tungo" />
               <p>
                 A simple marketplace for animals and animal products in Rwanda.
               </p>
@@ -87,7 +87,10 @@ export default function EtungoPage() {
           <div className="challenge-layout">
             <div>
               <SectionKicker>The challenge</SectionKicker>
-              <SplitText tag="h2" text="What’s available shouldn’t be hard to find." delay={20} />
+              <Heading
+                tag="h2"
+                text="What’s available shouldn’t be hard to find."
+              />
             </div>
             <p>
               A livestock farmer may have an animal ready for sale but limited
@@ -111,20 +114,8 @@ export default function EtungoPage() {
               return (
                 <article className="response-card" key={step.title}>
                   <Icon size={28} strokeWidth={1.5} aria-hidden="true" />
-                  <BlurText
-                    as="h3"
-                    text={step.title}
-                    delay={index * 90}
-                    stepDuration={30}
-                    direction="bottom"
-                  />
-                  <BlurText
-                    as="p"
-                    text={step.description}
-                    delay={index * 90 + 50}
-                    stepDuration={24}
-                    direction="bottom"
-                  />
+                  <TextBlock as="h3" text={step.title} />
+                  <TextBlock as="p" text={step.description} />
                 </article>
               );
             })}
@@ -136,18 +127,16 @@ export default function EtungoPage() {
           <div className="challenge-layout">
             <div>
               <SectionKicker>Who it serves</SectionKicker>
-              <SplitText tag="h2" text="Connecting people across the livestock market." delay={20} />
+              <Heading
+                tag="h2"
+                text="Connecting people across the livestock market."
+              />
             </div>
             <ul className="audience-list">
-              {audiences.map((audience, index) => (
+              {audiences.map((audience) => (
                 <li key={audience}>
                   <Check size={18} aria-hidden="true" />
-                  <BlurText
-                    text={audience}
-                    delay={index * 90}
-                    stepDuration={30}
-                    direction="bottom"
-                  />
+                  <TextBlock text={audience} />
                 </li>
               ))}
             </ul>
@@ -210,7 +199,7 @@ export default function EtungoPage() {
         <Container>
           <div className="evidence-note">
             <SectionKicker>Future development</SectionKicker>
-            <SplitText tag="h2" text="Improve with the people who use it." delay={20} />
+            <Heading tag="h2" text="Improve with the people who use it." />
             <p>
               Marketplace activity and community feedback guide what comes next.
               Future improvements will be shaped by validated needs, usability

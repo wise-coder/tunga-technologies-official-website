@@ -1,5 +1,10 @@
-import { BlurText, Container, Hero, SectionHeader } from "@/components/ui";
-import { CTASection, SolutionCard } from "@/components/sections";
+import {
+  TextBlock,
+  Container,
+  Hero,
+  SectionHeader,
+} from "@/components/interior-ui";
+import { CTASection, SolutionCard } from "@/components/interior-sections";
 import { selectionCriteria, solutions } from "@/content/solutions";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -39,20 +44,8 @@ export default function SolutionsPage() {
             {selectionCriteria.map((criterion, index) => (
               <article className="criteria-card" key={criterion.title}>
                 <span>0{index + 1}</span>
-                <BlurText
-                  as="h3"
-                  text={criterion.title}
-                  delay={index * 90}
-                  stepDuration={30}
-                  direction="bottom"
-                />
-                <BlurText
-                  as="p"
-                  text={criterion.description}
-                  delay={index * 90 + 45}
-                  stepDuration={22}
-                  direction="bottom"
-                />
+                <TextBlock as="h3" text={criterion.title} />
+                <TextBlock as="p" text={criterion.description} />
               </article>
             ))}
           </div>

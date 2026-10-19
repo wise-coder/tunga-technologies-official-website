@@ -1,5 +1,5 @@
 import { legal } from "@/content/legal";
-import { Container, Hero } from "./ui";
+import { Container, Hero } from "./interior-ui";
 
 export function LegalPage({ kind }: { kind: "privacy" | "terms" }) {
   const privacy = kind === "privacy";

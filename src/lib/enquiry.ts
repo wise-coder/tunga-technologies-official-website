@@ -1,4 +1,5 @@
 import { partnershipTypes } from "@/content/site";
+import { isEmailAddress } from "./email-address";
 
 export const contactTopics = [
   "General enquiry",
@@ -30,7 +31,7 @@ export function validateEnquiry(value: Partial<Enquiry>): FieldErrors {
     errors.kind = "Choose a valid enquiry type.";
   if (text("name").length < 2)
     errors.name = "Please enter your name (at least 2 characters).";
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text("email")))
+  if (!isEmailAddress(text("email")))
     errors.email = "Please enter a valid email address.";
   if (value.kind === "partnership" && !text("organization"))
     errors.organization = "Please enter your organization.";

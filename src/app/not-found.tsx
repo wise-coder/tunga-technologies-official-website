@@ -1,4 +1,4 @@
-import { Button, Container, SectionKicker } from "@/components/ui";
+import { Button, Container, SectionKicker } from "@/components/interior-ui";
 export default function NotFound() {
   return (
     <section className="error-page">

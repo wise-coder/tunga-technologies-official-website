@@ -4,10 +4,12 @@ import { PageLoader } from "@/components/page-loader";
 import { Footer } from "@/components/footer";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { SmoothScroll } from "@/components/smooth-scroll";
+import { InteriorPage } from "@/components/interior-page";
 import { site, indexable } from "@/content/site";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import "./theme.css";
+import "./interior.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -51,7 +53,7 @@ export default function RootLayout({
         <Header />
         <ScrollReveal />
         <main id="main-content" tabIndex={-1}>
-          {children}
+          <InteriorPage>{children}</InteriorPage>
         </main>
         <Footer />
         <script

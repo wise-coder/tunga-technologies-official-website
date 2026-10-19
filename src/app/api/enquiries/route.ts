@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { enquiryDeliveryReady } from "@/lib/form-config";
 import { validateEnquiry, type Enquiry } from "@/lib/enquiry";
+import { deliverEnquiry } from "@/lib/enquiry-delivery";
+import type { SubmittedEnquiry } from "@/lib/enquiry-email";
 
 export const runtime = "nodejs";
+export const maxDuration = 60;
 // Best-effort per-instance protection. Add gateway/shared-store rate limiting when scaling.
 const attempts = new Map<string, { count: number; expires: number }>();
 const MAX_BYTES = 20_000;
@@ -93,8 +96,8 @@ export async function POST(request: NextRequest) {
 
   const text = (value: unknown) =>
     typeof value === "string" ? value.trim() : "";
-  const enquiry = {
-    kind: data.kind,
+  const enquiry: SubmittedEnquiry = {
+    kind: data.kind === "partnership" ? "partnership" : "contact",
     name: text(data.name),
     organization: text(data.organization),
     role: text(data.role),
@@ -106,20 +109,7 @@ export async function POST(request: NextRequest) {
     submittedAt: new Date().toISOString(),
   };
   try {
-    const response = await fetch(process.env.CONTACT_WEBHOOK_URL!, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...(process.env.CONTACT_WEBHOOK_TOKEN
-          ? { Authorization: `Bearer ${process.env.CONTACT_WEBHOOK_TOKEN}` }
-          : {}),
-      },
-      body: JSON.stringify(enquiry),
-      signal: AbortSignal.timeout(10_000),
-      redirect: "error",
-      cache: "no-store",
-    });
-    if (!response.ok) throw new Error("Destination rejected request");
+    await deliverEnquiry(enquiry);
     return NextResponse.json({ message: "Your enquiry has been received." });
   } catch {
     // Do not log form contents or expose endpoint/credential details.

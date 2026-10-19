@@ -1,4 +1,4 @@
-// Replace these drafts with company-approved text before enabling collection.
+// Keep the notice aligned with the production hosting and email configuration.
 export const legal = {
   approved: process.env.LEGAL_APPROVED === "true",
   privacyContact: process.env.PRIVACY_CONTACT_EMAIL || "",
@@ -14,7 +14,11 @@ export const legal = {
     },
     {
       heading: "Website technology",
-      text: "This frontend does not include advertising trackers or analytics cookies. The hosting provider may process technical request information to serve and secure the website. The production hosting and enquiry-service details must be included in the approved notice.",
+      text: "This website is hosted on Vercel. Vercel processes technical request information to serve and secure the website. This frontend does not include advertising trackers or analytics cookies.",
+    },
+    {
+      heading: "How enquiries are delivered",
+      text: "When you submit a form, your enquiry is sent to our team through Gmail, provided by Google. Google processes and stores the email to deliver it and make it available in our enquiry mailbox. We use the contact details you provide to reply. The website does not keep a separate database copy of your enquiry.",
     },
     {
       heading: "External platforms",
